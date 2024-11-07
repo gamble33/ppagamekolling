@@ -34,7 +34,10 @@ public class JsonParser {
         Map<String, Object> properties = new HashMap<>();
 
         // Case of an empty object (closing brace is met straight away).
-        if (peek() == RIGHT_BRACE) return new JSONObject(properties);
+        if (peek() == RIGHT_BRACE) {
+            consume(RIGHT_BRACE);
+            return new JSONObject(properties);
+        }
 
         do {
             Entry<String, Object> property = parseProperty();
