@@ -1,4 +1,10 @@
 {
    "name": "Home",
-   "age": 17
+   "age": 17,
+   "awesome": false,
+   "nice": null,
+   "obj": {
+        "subobj": "cool beans",
+        "subobjnum": 15.6
+   }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Lexer {
+class Lexer {
     private static final Map<String, TokenKind> keywords = Map.of(
             "true", LITERAL_TRUE,
             "false", LITERAL_FALSE,
@@ -89,7 +89,12 @@ public class Lexer {
             throw new ParseException("`" + value + "` is not a valid keyword.", current);
         }
 
-        addToken(keywords.get(value));
+        TokenKind kind = keywords.get(value);
+
+        if (kind == LITERAL_NULL) 
+            addToken(kind);
+        else 
+            addToken(kind, Boolean.valueOf(value.toLowerCase()));
     }
 
     private void scanNumber() {
@@ -128,7 +133,7 @@ public class Lexer {
     }
 
     private void addToken(TokenKind kind, Object literal) {
-        Token token = new Token(kind, null);
+        Token token = new Token(kind, literal);
         tokens.add(token);
     }
 
