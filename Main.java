@@ -8,6 +8,8 @@ public class Main {
         System.out.println(contents);
         JSONObject object = new JsonParser(contents).parse();
         System.out.println(object.getString("name"));
+        System.out.println(object.getFloat("age"));
+        System.out.println(object.getBoolean("awesome"));
         object.debugPrintTree(0);
     }
 }

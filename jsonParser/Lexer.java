@@ -104,7 +104,9 @@ class Lexer {
 
         if (peek() == '.') {
             advance();
-            // TODO: make sure `1.` doesn't throw an error.
+            
+            // This allows for `1.` to be interpreted as 1.0 which isn't actually compliant with
+            // the JSON specification. That's fine though right??
             while (Character.isDigit(peek()))
                 advance();
         }

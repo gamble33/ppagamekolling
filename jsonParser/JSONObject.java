@@ -9,8 +9,20 @@ public class JSONObject {
         this.properties = properties;
     }
 
+    public JSONArray getJsonArray(String key) {
+        return (JSONArray) properties.get(key);
+    }
+
     public String getString(String key) {
         return (String) properties.get(key);
+    }
+
+    public float getFloat(String key) {
+        return (float) properties.get(key);
+    }
+
+    public boolean getBoolean(String key) {
+        return (boolean) properties.get(key);
     }
 
     public void debugPrintTree(int depth) {
@@ -25,7 +37,10 @@ public class JSONObject {
             }
             else if (property.getValue() instanceof JSONObject) {
                 ((JSONObject) property.getValue()).debugPrintTree(depth + 1);
-            } else {
+            } else if (property.getValue() instanceof JSONArray) {
+                ((JSONArray) property.getValue()).debugPrintArray(depth);
+            }
+            else {
                 System.out.print(property.getValue().toString());
             }
             System.out.println();

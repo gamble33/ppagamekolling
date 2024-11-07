@@ -5,6 +5,7 @@
    "nice": null,
    "obj": {
         "subobj": "cool beans",
-        "subobjnum": 15.6
-   }
-}
+        "num": 15.9
+   },
+   "array": [1, 2, 3]
+ }

@@ -4,6 +4,7 @@ import static jsonParser.TokenKind.*;
 
 import java.text.ParseException;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +54,15 @@ public class JsonParser {
         return new AbstractMap.SimpleEntry(propertyName, value);
     }
 
-    private Object parseArray() {
-        // TODO.
-        return null;
+    private Object parseArray() throws ParseException {
+        List<Object> objectList = new ArrayList<>();
+        do {
+            Object value = parseValue();
+            objectList.add(value);
+            if (peek() != RIGHT_BRACKET) consume(COMMA);
+        } while (peek() != RIGHT_BRACKET && !isAtEnd());
+        consume(RIGHT_BRACKET);
+        return new JSONArray(objectList);
     }
 
     private Object parseValue() throws ParseException {
