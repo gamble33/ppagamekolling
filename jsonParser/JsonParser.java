@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class JsonParser {
+public class JSONParser {
     private List<Token> tokens;
     private int current = 0;
 
-    public JsonParser(String source) {
+    public JSONParser(String source) {
         this.tokens = new Lexer(source).scanTokens();
     }
 

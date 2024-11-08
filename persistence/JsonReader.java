@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class JsonReader {
-    private static final Path gameDataPath = Paths.get("data/rooms/");
-
-    public List<GameContentFile> readGameDataFiles() {
+    public List<GameContentFile> readGameDataFiles(String path) {
+        Path gameDataPath = Paths.get("data/" + path);
         List<GameContentFile> gameContentFiles = new ArrayList<>();
         try {
             Stream<Path> files = Files.list(gameDataPath);
@@ -25,6 +24,7 @@ public class JsonReader {
                     System.err.println("Couldn't read file " + filePath.toString() + ": " + exception.getMessage());
                 }
             });
+            files.close();
         } catch (IOException exception) {
             System.err.println("Error accessing game data directory: " + exception.getMessage());
         }

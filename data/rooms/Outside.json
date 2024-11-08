@@ -1,0 +1,10 @@
+{
+   "name": "Outside",
+   "description": "Outside",
+   "exits": [
+    {
+        "name": "west",
+        "room": "Home"
+     }
+    ]
+ }

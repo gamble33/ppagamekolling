@@ -1,11 +1,10 @@
 {
    "name": "Home",
-   "age": 17,
-   "awesome": false,
-   "nice": null,
-   "obj": {
-        "subobj": "cool beans",
-        "num": 15.9
-   },
-   "array": [1, 2, 3, {}]
+   "description": "Home",
+   "exits": [
+    {
+        "name": "east",
+        "room": "Outside"
+     }
+    ]
  }
