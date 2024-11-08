@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=JSONParser
+comment1.params=source
+comment1.target=JSONParser(java.lang.String)
+comment10.params=
+comment10.target=TokenKind\ peek()
+comment11.params=
+comment11.target=boolean\ isAtEnd()
+comment2.params=
+comment2.target=JSONObject\ parse()
+comment3.params=
+comment3.target=JSONObject\ parseObject()
+comment4.params=
+comment4.target=java.util.Map.Entry\ parseProperty()
+comment5.params=
+comment5.target=java.lang.Object\ parseArray()
+comment6.params=
+comment6.target=java.lang.Object\ parseValue()
+comment7.params=kind
+comment7.target=Token\ consume(TokenKind)
+comment8.params=
+comment8.target=Token\ advance()
+comment9.params=
+comment9.target=Token\ current()
+numComments=12

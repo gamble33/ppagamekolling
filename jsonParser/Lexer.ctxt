@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Lexer
+comment1.params=source
+comment1.target=Lexer(java.lang.String)
+comment10.params=
+comment10.target=char\ peek()
+comment11.params=
+comment11.target=boolean\ isAtEnd()
+comment2.params=
+comment2.target=java.util.List\ scanTokens()
+comment3.params=
+comment3.target=void\ scanToken()
+comment4.params=
+comment4.target=void\ scanKeyword()
+comment5.params=
+comment5.target=void\ scanNumber()
+comment6.params=
+comment6.target=void\ scanString()
+comment7.params=kind
+comment7.target=void\ addToken(TokenKind)
+comment8.params=kind\ literal
+comment8.target=void\ addToken(TokenKind,\ java.lang.Object)
+comment9.params=
+comment9.target=char\ advance()
+numComments=12

@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=JSONObject
+comment1.params=properties
+comment1.target=JSONObject(java.util.Map)
+comment2.params=key
+comment2.target=JSONArray\ getJsonArray(java.lang.String)
+comment3.params=key
+comment3.target=java.lang.String\ getString(java.lang.String)
+comment4.params=key
+comment4.target=float\ getFloat(java.lang.String)
+comment5.params=key
+comment5.target=boolean\ getBoolean(java.lang.String)
+comment6.params=depth
+comment6.target=void\ debugPrintTree(int)
+numComments=7
