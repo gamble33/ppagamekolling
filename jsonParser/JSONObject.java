@@ -21,6 +21,10 @@ public class JSONObject {
         return (float) properties.get(key);
     }
 
+    public int getInteger(String key) {
+        return (int) getFloat(key);
+    }
+
     public boolean getBoolean(String key) {
         return (boolean) properties.get(key);
     }

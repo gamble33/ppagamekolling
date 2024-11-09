@@ -1,10 +1,13 @@
 {
    "name": "Home",
-   "description": "Home",
+   "description": "home. This is your tribal village",
    "exits": [
     {
         "name": "east",
         "room": "Outside"
      }
+    ],
+    "npcs": [
+      "Tamerlan"
     ]
  }
