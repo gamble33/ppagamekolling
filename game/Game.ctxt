@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Game
 comment0.text=\n\ \ This\ class\ is\ the\ main\ class\ of\ the\ "World\ of\ Zuul"\ application.\ \n\ \ "World\ of\ Zuul"\ is\ a\ very\ simple,\ text\ based\ adventure\ game.\ \ Users\ \n\ \ can\ walk\ around\ some\ scenery.\ That's\ all.\ It\ should\ really\ be\ extended\ \n\ \ to\ make\ it\ more\ interesting\!\n\ \n\ \ To\ play\ this\ game,\ create\ an\ instance\ of\ this\ class\ and\ call\ the\ "play"\n\ \ method.\n\ \n\ \ This\ main\ class\ creates\ and\ initialises\ all\ the\ others\:\ it\ creates\ all\n\ \ rooms,\ creates\ the\ parser\ and\ starts\ the\ game.\ \ It\ also\ evaluates\ and\n\ \ executes\ the\ commands\ that\ the\ parser\ returns.\n\ \n\ @author\ \ Michael\ K\u00F6lling\ and\ David\ J.\ Barnes\n\ @version\ 2016.02.29\n
-comment1.params=startingRoom
+comment1.params=startingLocation
 comment1.target=Game(Room)
 comment1.text=\n\ Create\ the\ game\ and\ initialise\ its\ internal\ map.\n
 comment2.params=
@@ -18,7 +18,7 @@ comment5.target=void\ printHelp()
 comment5.text=\n\ Print\ out\ some\ help\ information.\n\ Here\ we\ print\ some\ stupid,\ cryptic\ message\ and\ a\ list\ of\ the\ \n\ command\ words.\n
 comment6.params=command
 comment6.target=void\ goRoom(Command)
-comment6.text=\ \n\ Try\ to\ in\ to\ one\ direction.\ If\ there\ is\ an\ exit,\ enter\ the\ new\n\ room,\ otherwise\ print\ an\ error\ message.\n
+comment6.text=\ \n\ Try\ to\ in\ to\ one\ direction.\ If\ there\ is\ an\ exit,\ enter\ the\ new\n\ location,\ otherwise\ print\ an\ error\ message.\n
 comment7.params=command
 comment7.target=boolean\ quit(Command)
 comment7.text=\ \n\ "Quit"\ was\ entered.\ Check\ the\ rest\ of\ the\ command\ to\ see\n\ whether\ we\ really\ quit\ the\ game.\n\ @return\ true,\ if\ this\ command\ quits\ the\ game,\ false\ otherwise.\n

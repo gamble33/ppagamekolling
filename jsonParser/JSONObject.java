@@ -29,6 +29,14 @@ public class JSONObject {
         return (boolean) properties.get(key);
     }
 
+    /**
+     * Checks if a JSONObject has a property with the specified key.
+     * @return True if the JSONObject has a property with the key.
+     */
+    public boolean has(String key) {
+        return properties.containsKey(key);
+    }
+
     public void debugPrintTree(int depth) {
         System.out.print("{");
         System.out.println();
