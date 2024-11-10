@@ -2,20 +2,19 @@ package game.commands;
 
 import game.Game;
 
-public class QuitCommand implements Command {
-    private final Game game;
-
+public class QuitCommand extends Command {
     public QuitCommand(Game game) {
-        this.game = game;
+        super(game);
     }
 
     @Override
-    public void execute(RawCommand command) {
+    public boolean execute(RawCommand command) {
         if (command.hasArgs()) {
             System.out.println("Quit what?");
-            return;
+            return false;
         }
 
         game.requestQuit();
+        return true;
     }
 }

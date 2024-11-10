@@ -1,5 +1,9 @@
 {
     "name": "Tamerlan",
     "description": "Tribe Hunter",
-    "age": 24
+    "age": 24,
+    "dialogue": [
+        {
+        }
+    ]
 }

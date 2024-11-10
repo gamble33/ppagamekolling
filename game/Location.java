@@ -44,6 +44,10 @@ public class Location
         npcs.add(npc);
     }
 
+    public List<Npc> getNpcList() {
+        return npcs;
+    }
+
     /**
      * Define an exit from this room.
      * @param direction The direction of the exit.

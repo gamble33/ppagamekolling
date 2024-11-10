@@ -2,8 +2,10 @@ package game;
 
 import game.commands.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -25,8 +27,11 @@ import java.util.Set;
 public class Game 
 {
     private final Parser parser;
+    private final Stack<Command> commandStack = new Stack<>();
+    private final Stack<Command> redoCommandStack = new Stack<>();
+    private final Map<String, Class<? extends Command>> commandDispatch;
+
     private Location currentLocation;
-    private final Map<String, Command> commandDispatch;
     private boolean gameRunning = true;
 
     /**
@@ -38,9 +43,11 @@ public class Game
         parser = new Parser();
 
         this.commandDispatch = Map.of(
-                "quit", new QuitCommand(this),
-                "help", new HelpCommand(this),
-                "go", new GoCommand(this)
+                "quit", QuitCommand.class,
+                "help", HelpCommand.class,
+                "go", GoCommand.class,
+                "undo", UndoCommand.class,
+                "redo", RedoCommand.class
         );
     }
 
@@ -56,9 +63,8 @@ public class Game
                 
         while (gameRunning) {
             processCommand();
-
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Thank you for playing. Good bye.");
     }
 
     public void requestQuit() {
@@ -75,6 +81,14 @@ public class Game
 
     public void MoveTo(Location newLocation) {
         this.currentLocation = newLocation;
+    }
+
+    public Stack<Command> getCommandStack() {
+        return commandStack;
+    }
+
+    public Stack<Command> getRedoCommandStack() {
+        return redoCommandStack;
     }
 
     /**
@@ -100,7 +114,17 @@ public class Game
             return;
         }
 
-        commandDispatch.get(rawCommand.getCommandName()).execute(rawCommand);
+        // Find the appropriate class of the command, instantiate it, push it to stack and execute it.
+        Class<? extends Command> commandClass = commandDispatch.get(rawCommand.getCommandName());
+        try {
+            Command command = commandClass.getConstructor(Game.class).newInstance(this);
+            boolean commandSuccessful = command.execute(rawCommand);
+            if (commandSuccessful && command.canUndo()) commandStack.push(command);
+            if (!(command instanceof RedoCommand) && !(command instanceof UndoCommand))
+                redoCommandStack.clear();
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException exception) {
+            System.err.println("Creating command instance problem: " + exception.getMessage());
+        }
     }
 
     // implementations of user commands:

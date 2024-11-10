@@ -10,6 +10,10 @@ public class Npc {
         this.description = description;
         this.age = age;
     }
+
+    public String getName() {
+        return name;
+    }
     
     @Override
     public String toString() {

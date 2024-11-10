@@ -1,9 +1,12 @@
 package game.commands;
+
+import game.Game;
+
 import java.util.List;
 
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * This class is part of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.
  * <p>
  * This class holds information about a command that was issued by the user.
  * A command currently consists of two strings: a command word and a second
@@ -15,13 +18,45 @@ import java.util.List;
  * known) then the command word is <null>.
  * <p>
  * If the command had only one word, then the second word is <null>.
- * 
- * @author  Michael Kölling and David J. Barnes
+ *
+ * @author Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
 
-public interface Command
-{
-    void execute(RawCommand rawCommand);
+public abstract class Command {
+    protected Game game;
+    protected boolean canUndo = false;
+    private RawCommand rawCommand = null;
+
+    public Command(Game game) {
+        this.game = game;
+    }
+
+    /**
+     * Executes the command, if the command was not executed successfully (perhaps due to the user structuring
+     * the request improperly), the method will return false. If the command was executed successfully, true is
+     * returned.
+     *
+     * @param rawCommand The user's raw input (prior to validation).
+     * @return False if command was not executed.
+     */
+    public boolean execute(RawCommand rawCommand) {
+        return false;
+    }
+
+    public void undo() {
+    }
+
+    public boolean canUndo() {
+        return canUndo;
+    }
+
+    public RawCommand getRawCommand() {
+        return rawCommand;
+    }
+
+    protected void setRawCommand(RawCommand rawCommand) {
+        this.rawCommand = rawCommand;
+    }
 }
 

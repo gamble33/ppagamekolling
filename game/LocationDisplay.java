@@ -14,6 +14,19 @@ public class LocationDisplay {
         String description = "You are " + location.getShortDescription() +
                 ".\n" + getExitString(location);
         System.out.println(description);
+        displayNpcs(location);
+    }
+
+    public void displayNpcs(Location location) {
+        if (location.getNpcList().isEmpty()) {
+            System.out.println("Nobody is around you. You are alone.");
+        } else {
+            System.out.print("The following are around you: ");
+            location.getNpcList().forEach(npc -> {
+                System.out.print(npc.getName() + " ");
+            });
+            System.out.println();
+        }
     }
 
     /**
