@@ -1,10 +1,12 @@
 package game.commands;
 
 import game.Game;
+import game.states.CommandState;
 
 public class RedoCommand extends Command {
-    public RedoCommand(Game game) {
-        super(game);
+
+    public RedoCommand(Game game, CommandState commandState) {
+        super(game, commandState);
     }
 
     @Override
@@ -14,12 +16,12 @@ public class RedoCommand extends Command {
             return false;
         }
 
-        if (game.getRedoCommandStack().isEmpty()) {
+        if (commandState.getRedoCommandStack().isEmpty()) {
             System.out.println("Nothing to redo.");
             return false;
         }
 
-        Command command = game.getRedoCommandStack().pop();
+        Command command = commandState.getRedoCommandStack().pop();
 
         if (command.getRawCommand() == null) {
             System.err.println("Something went wrong. Redoing command has no raw command.");
@@ -28,7 +30,7 @@ public class RedoCommand extends Command {
 
         boolean commandResult = command.execute(command.getRawCommand());
         if (commandResult && command.canUndo()) {
-            game.getCommandStack().push(command);
+            commandState.getCommandStack().push(command);
         }
         return true;
     }

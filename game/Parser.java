@@ -38,13 +38,9 @@ public class Parser
     /**
      * @return The next raw command from the user.
      */
-    public RawCommand getRawCommand()
+    public RawCommand getRawCommand(String inputLine)
     {
-        String inputLine;   // will hold the full input line
         List<String> arguments = new ArrayList<>();
-
-        System.out.print("> ");     // print prompt
-
         inputLine = reader.nextLine();
 
         // Find all words on the line.

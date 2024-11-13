@@ -1,11 +1,12 @@
 package game.commands;
 
 import game.Game;
+import game.states.CommandState;
 
 public class UndoCommand extends Command {
 
-    public UndoCommand(Game game) {
-        super(game);
+    public UndoCommand(Game game, CommandState commandState) {
+        super(game, commandState);
     }
 
     @Override
@@ -15,13 +16,13 @@ public class UndoCommand extends Command {
             return false;
         }
 
-        if (game.getCommandStack().isEmpty()) {
+        if (commandState.getCommandStack().isEmpty()) {
             System.out.println("Nothing to undo.");
             return false;
         }
 
-        Command command = game.getCommandStack().pop();
-        game.getRedoCommandStack().push(command);
+        Command command = commandState.getCommandStack().pop();
+        commandState.getRedoCommandStack().push(command);
         command.undo();
         return true;
     }

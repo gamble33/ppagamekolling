@@ -4,6 +4,46 @@
     "age": 24,
     "dialogue": [
         {
+            "id": "start",
+            "message": "Have you heard? Our leader's wife was kidnapped!",
+            "responses": [
+                {
+                    "response":  "Who kidnapped her?",
+                    "nextDialogue": "wife"
+                },
+                {
+                    "response": "What's the wife's name?",
+                    "nextDialogue": "wife"
+                },
+                {
+                    "response": "Tell me more about our leader.",
+                    "nextDialogue": "leader"
+                }
+            ]
+        },
+        {
+            "id": "leader",
+            "message": "Our leader, Timur, is fierce warrior. Though he is harsh at times, he is fair. He treasures his wife as she is rarer than any gem home to this land. He is sick right now, for if he weren't, whoever kidnapped his wife would face his insatiable wrath. I know for a fact he would appreciate and respect anybody willing to assist him in rescuing his wife.",
+            "responses": [
+                {
+                    "response": "So, what's his wife's name?",
+                    "nextDialogue": "wife"
+                },
+                {
+                    "response": "Do you know where his wife could be?",
+                    "nextDialogue": "wife"
+                }
+            ]
+        },
+        {
+            "id": "wife",
+            "message": "The wife, Anastasia, I heard some people say it was the Kishi juz tribe that stole her.",
+            "responses": [
+                {
+                    "response": "Okay.. Bye.",
+                    "nextDialogue": "end"
+                }
+            ]
         }
     ]
 }

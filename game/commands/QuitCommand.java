@@ -1,10 +1,11 @@
 package game.commands;
 
 import game.Game;
+import game.states.CommandState;
 
 public class QuitCommand extends Command {
-    public QuitCommand(Game game) {
-        super(game);
+    public QuitCommand(Game game, CommandState commandState) {
+        super(game, commandState);
     }
 
     @Override

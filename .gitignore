@@ -1,6 +1,9 @@
 *.class
 *.ctxt
 
+# Mac Stuff
+.DS_Store
+
 # IDEA Stuff
 *.iml
 .idea/

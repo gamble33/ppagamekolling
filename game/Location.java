@@ -1,6 +1,5 @@
 package game;
 
-import java.util.Set;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,10 +8,10 @@ import java.util.Map;
 
 /**
  * Class Room - a room in an adventure game.
- *
+ * <p>
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
- *
+ * <p>
  * A "Room" represents one location in the scenery of the game.  It is 
  * connected to other rooms via exits.  For each existing exit, the room 
  * stores a reference to the neighboring room.
@@ -46,6 +45,23 @@ public class Location
 
     public List<Npc> getNpcList() {
         return npcs;
+    }
+
+    public Npc getNpc(String name) {
+        return npcs.stream()
+                .filter(npc -> npc.getName().toLowerCase().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Npc> getTalkableNpcs() {
+        return npcs.stream()
+                .filter(Npc::canTalkTo)
+                .toList();
+    }
+
+    public boolean hasNpc(String name) {
+        return npcs.stream().anyMatch(npc -> npc.getName().toLowerCase().equals(name));
     }
 
     /**

@@ -1,10 +1,12 @@
 package game.commands;
 
 import game.Game;
+import game.states.CommandState;
 
 public class HelpCommand extends Command {
-    public HelpCommand(Game game) {
-        super(game);
+
+    public HelpCommand(Game game, CommandState commandState) {
+        super(game, commandState);
     }
 
     @Override
@@ -17,7 +19,7 @@ public class HelpCommand extends Command {
         System.out.println();
         System.out.println("Your command words are:");
 
-        String validCommands = String.join(" ", game.getCommands());
+        String validCommands = String.join(" ", commandState.getCommands());
         System.out.println(validCommands);
         return true;
     }

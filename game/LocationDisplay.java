@@ -1,31 +1,35 @@
 package game;
 
+import game.ui.GameView;
+
 import java.util.Set;
 
 /**
  * The RoomDisplay class is responsible for presenting room information.
  */
 public class LocationDisplay {
+    private final GameView view;
 
-    public LocationDisplay() {
+    public LocationDisplay(GameView view) {
+        this.view = view;
     }
 
     public void showLocationSummary(Location location) {
         String description = "You are " + location.getShortDescription() +
                 ".\n" + getExitString(location);
-        System.out.println(description);
+        view.addText(description);
         displayNpcs(location);
     }
 
     public void displayNpcs(Location location) {
         if (location.getNpcList().isEmpty()) {
-            System.out.println("Nobody is around you. You are alone.");
+            view.addText("Nobody is around you. You are alone.");
         } else {
-            System.out.print("The following are around you: ");
+            StringBuilder names = new StringBuilder("The following are around you: ");
             location.getNpcList().forEach(npc -> {
-                System.out.print(npc.getName() + " ");
+                names.append(npc.getName() + " ");
             });
-            System.out.println();
+            view.addText(names.toString());
         }
     }
 

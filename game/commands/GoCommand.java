@@ -3,19 +3,20 @@ package game.commands;
 import game.Game;
 import game.Location;
 import game.LocationDisplay;
+import game.states.CommandState;
 
 /**
  * Try to in to one direction. If there is an exit, enter the new
  * room, otherwise print an error message.
  */
 public class GoCommand extends Command {
-    private LocationDisplay locationDisplay;
+    private final LocationDisplay locationDisplay;
     private Location previousLocation;
 
-    public GoCommand(Game game) {
-        super(game);
+    public GoCommand(Game game, CommandState commandState) {
+        super(game, commandState);
         this.canUndo = true;
-        this.locationDisplay = new LocationDisplay();
+        this.locationDisplay = new LocationDisplay(game.getView());
     }
 
     @Override

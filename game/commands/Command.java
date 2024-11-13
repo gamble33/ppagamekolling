@@ -1,6 +1,7 @@
 package game.commands;
 
 import game.Game;
+import game.states.CommandState;
 
 import java.util.List;
 
@@ -24,12 +25,14 @@ import java.util.List;
  */
 
 public abstract class Command {
-    protected Game game;
+    protected final Game game;
+    protected final CommandState commandState;
     protected boolean canUndo = false;
     private RawCommand rawCommand = null;
 
-    public Command(Game game) {
+    public Command(Game game, CommandState commandState) {
         this.game = game;
+        this.commandState = commandState;
     }
 
     /**
