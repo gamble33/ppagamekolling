@@ -11,10 +11,13 @@ public class IntroState implements GameState {
     }
 
     @Override
-    public void update() {
+    public void enter() {
         printWelcome();
         game.changeState(new CommandState(game));
     }
+
+    @Override
+    public void exit() {}
 
     /**
      * Print out the opening message for the player.

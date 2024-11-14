@@ -1,5 +1,6 @@
 package game.states;
 
 public interface GameState {
-    void update();
+    void enter();
+    void exit();
 }

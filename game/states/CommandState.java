@@ -2,6 +2,7 @@ package game.states;
 
 import game.Game;
 import game.Parser;
+import game.callbacks.TextEntered;
 import game.commands.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,21 +23,25 @@ public class CommandState implements GameState {
     private final Parser parser;
     private final Stack<Command> commandStack = new Stack<>();
     private final Stack<Command> redoCommandStack = new Stack<>();
-    private String currentInput = "";
+
+    private final TextEntered entered = (input -> {
+        processCommand(input);
+    });
 
     public CommandState(Game game) {
         this.game = game;
         this.parser = new Parser();
-        game.getView().addUIListener(input -> {
-            System.out.println(input.length());
-            currentInput = input;
-        });
+
     }
 
     @Override
-    public void update() {
-        if (currentInput.length() == 0) return;
-        processCommand();
+    public void enter() {
+        game.getView().addUIListener(entered);
+    }
+
+    @Override
+    public void exit() {
+        game.getView().removeUIListener(entered);
     }
 
     public Set<String> getCommands() {
@@ -51,15 +56,14 @@ public class CommandState implements GameState {
         return redoCommandStack;
     }
 
-    private void processCommand() {
-        RawCommand rawCommand = parser.getRawCommand(currentInput);
-        currentInput = "";
+    private void processCommand(String input) {
+        RawCommand rawCommand = parser.getRawCommand(input);
 
         if (!commandDispatch.containsKey(rawCommand.getCommandName())) {
-            StringBuilder errorMessage = new StringBuilder();
-            errorMessage.append(rawCommand.getCommandName()).append(" is not a valid command.");
-            errorMessage.append("Type 'help' to see a list of valid commands.");
-            game.getView().addText(errorMessage.toString());
+            String errorMessage = rawCommand.getCommandName() + " is not a valid command." +
+                    '\n' +
+                    "Type 'help' to see a list of valid commands.";
+            game.getView().addText(errorMessage);
             return;
         }
 

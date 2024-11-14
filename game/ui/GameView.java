@@ -12,10 +12,16 @@ import java.util.ArrayList;
 public class GameView {
     private JPanel scrollablePanel;
     private GridBagConstraints gbc;
-    private List<TextEntered> listeners = new ArrayList<>();
+    private final List<TextEntered> listeners = new ArrayList<>();
+    private final List<TextEntered> listenersToRemove = new ArrayList<>();
+    private final List<TextEntered> listenersToAdd = new ArrayList<>();
 
     public void addUIListener(TextEntered listener) {
-        listeners.add(listener);
+        listenersToAdd.add(listener);
+    }
+
+    public void removeUIListener(TextEntered listener) {
+        listenersToRemove.add(listener);
     }
 
     public void show() {
@@ -47,6 +53,11 @@ public class GameView {
         JTextField inputField = new JTextField(20);
         frame.add(inputField, BorderLayout.SOUTH);
         inputField.addActionListener(e -> {
+            listeners.removeAll(listenersToRemove);
+            listeners.addAll(listenersToAdd);
+            listenersToAdd.clear();
+            listenersToRemove.clear();
+
             String input = inputField.getText();
             inputField.setText("");
             listeners.forEach(listener -> listener.onEnter(input));

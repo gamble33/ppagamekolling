@@ -27,7 +27,6 @@ public class Game
 
     private GameState gameState;
     private Location currentLocation;
-    private boolean gameRunning = true;
 
     /**
      * Create the game and initialise its starting location.
@@ -42,24 +41,19 @@ public class Game
 
     }
 
-    /**
-     *  Main play routine.  Loops until end of play.
-     */
-    public void play() 
+    public void play()
     {            
-        // Enter the main game loop.
-        while (gameRunning) {
-            gameState.update();
-        }
-        view.addText("Thank you for playing. Good bye.");
+        new Thread(() -> gameState.enter()).start();
     }
 
     public void changeState(GameState newState) {
-        this.gameState = newState;
+        gameState.exit();
+        gameState = newState;
+        gameState.enter();
     }
 
     public void requestQuit() {
-        gameRunning = false;
+        // TODO
     }
 
     public Location getCurrentLocation() {

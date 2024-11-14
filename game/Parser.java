@@ -25,23 +25,12 @@ import java.util.List;
  */
 public class Parser 
 {
-    private final Scanner reader;         // source of command input
-
-    /**
-     * Create a parser to read from the terminal window.
-     */
-    public Parser() 
-    {
-        reader = new Scanner(System.in);
-    }
-
     /**
      * @return The next raw command from the user.
      */
     public RawCommand getRawCommand(String inputLine)
     {
         List<String> arguments = new ArrayList<>();
-        inputLine = reader.nextLine();
 
         // Find all words on the line.
         Scanner tokenizer = new Scanner(inputLine);

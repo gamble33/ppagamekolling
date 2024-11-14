@@ -14,13 +14,11 @@ public class HelpCommand extends Command {
         // TODO: show help for specific command.
         if (command.hasArgs()) return false;
 
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
+        String helpMessage = "Your command words are: ";
 
         String validCommands = String.join(" ", commandState.getCommands());
-        System.out.println(validCommands);
+        helpMessage += validCommands;
+        game.getView().addText(helpMessage);
         return true;
     }
 }
