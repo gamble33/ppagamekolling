@@ -6,6 +6,8 @@ import game.callbacks.TextEntered;
 import game.dialogue.Dialogue;
 import game.dialogue.Response;
 
+import javax.swing.*;
+
 public class TalkState implements GameState {
     private final Game game;
     private final Npc npc;
@@ -21,19 +23,24 @@ public class TalkState implements GameState {
 
     @Override
     public void enter() {
+        game.getView().disableInputField();
         displayOptions();
         game.getView().addUIListener(entered);
     }
 
     @Override
     public void exit() {
+        game.getView().enableInputField();
         game.getView().removeUIListener(entered);
     }
 
     private void processDialogue(String input) {
         int choice = processUserChoice(input);
         if (choice == -1) return;
+        advanceDialogue(choice);
+    }
 
+    private void advanceDialogue(int choice) {
         Response response = dialogue.getResponses().get(choice);
         game.getView().addText("Me: " + response.getResponseMessage());
         String nextDialogueId = response.getNextDialogue();
@@ -48,27 +55,30 @@ public class TalkState implements GameState {
     }
 
     private void displayOptions() {
-        StringBuilder dialogueList = new StringBuilder();
-        dialogueList
-                .append(npc.getName())
-                .append(": ")
-                .append(dialogue.getMessage())
-                .append("\n");
+        String dialogueList =
+                npc.getName() +
+                        ": " +
+                        dialogue.getMessage();
+        game.getView().addText(dialogueList);
         for (int i = 0; i < dialogue.getResponses().size(); i++) {
             Response response = dialogue.getResponses().get(i);
-            dialogueList
-                    .append("[")
-                    .append((char) ((int) 'a' + i))
-                    .append("]: ")
-                    .append(response.getResponseMessage())
-                    .append("\r\n");
+            String responseString =
+                    "[" +
+                            (char) ((int) 'a' + i) +
+                            "]: " +
+                            response.getResponseMessage();
+            JButton button = new JButton(responseString);
+            int finalI = i;
+            button.addActionListener(e -> {
+                advanceDialogue(finalI);
+            });
+            game.getView().addButton(button, dialogue.getMessage());
         }
-        game.getView().addText(dialogueList.toString());
 
     }
 
     private int processUserChoice(String userChoice) {
-        int choice = -1;
+        int choice;
 
         if (userChoice.split(" ").length > 1) {
             game.getView().addText("Please just enter a single letter corresponding to a response.");
