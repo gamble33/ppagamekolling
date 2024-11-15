@@ -44,7 +44,7 @@ public class CommandState implements GameState {
         game.getView().removeUIListener(entered);
     }
 
-    public Set<String> getCommands() {
+    public static Set<String> getCommands() {
         return commandDispatch.keySet();
     }
 

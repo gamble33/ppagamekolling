@@ -1,5 +1,7 @@
 package game;
 
+import game.sound.Sound;
+import game.sound.SoundPlayer;
 import game.states.GameState;
 import game.states.IntroState;
 import game.ui.GameView;
@@ -24,9 +26,11 @@ import game.ui.GameView;
 public class Game 
 {
     private final GameView view;
+    private final SoundPlayer<Sound> soundPlayer;
 
     private GameState gameState;
     private Location currentLocation;
+    private Sound currentMusic;
 
     /**
      * Create the game and initialise its starting location.
@@ -36,14 +40,16 @@ public class Game
         this.view = new GameView();
         view.show();
 
-        this.currentLocation = startingLocation;
-        this.gameState = new IntroState(this);
+        soundPlayer = new SoundPlayer<Sound>();
+        soundPlayer.loadSounds(Sound.class);
 
+        moveTo(startingLocation, false);
+        this.gameState = new IntroState(this);
     }
 
     public void play()
     {            
-        new Thread(() -> gameState.enter()).start();
+        gameState.enter();
     }
 
     public void changeState(GameState newState) {
@@ -60,13 +66,27 @@ public class Game
         return currentLocation;
     }
 
-    public void MoveTo(Location newLocation) {
+    public void moveTo(Location newLocation) {
+        moveTo(newLocation, true);
+    }
+
+    public void moveTo(Location newLocation, boolean playSound) {
         this.currentLocation = newLocation;
+        view.setTitle(currentLocation.getTitle());
+        soundPlayer.stopSound(currentMusic);
+        if (currentLocation.hasMusic()) {
+            currentMusic = Sound.fromString(currentLocation.getMusic());
+            soundPlayer.playSoundOnDifferentThread(currentMusic, true);
+        }
+        if (playSound)
+            soundPlayer.playSoundOnDifferentThread(Sound.HorseTrot);
     }
 
     public GameView getView() {
         return view;
     }
 
-
+    public SoundPlayer<Sound> getSoundPlayer() {
+        return soundPlayer;
+    }
 }

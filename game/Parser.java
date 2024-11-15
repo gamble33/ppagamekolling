@@ -30,6 +30,7 @@ public class Parser
      */
     public RawCommand getRawCommand(String inputLine)
     {
+        inputLine = inputLine.trim().toLowerCase();
         List<String> arguments = new ArrayList<>();
 
         // Find all words on the line.

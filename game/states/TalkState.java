@@ -5,6 +5,7 @@ import game.Npc;
 import game.callbacks.TextEntered;
 import game.dialogue.Dialogue;
 import game.dialogue.Response;
+import game.sound.Sound;
 
 import javax.swing.*;
 
@@ -12,8 +13,6 @@ public class TalkState implements GameState {
     private final Game game;
     private final Npc npc;
     private Dialogue dialogue;
-
-    private final TextEntered entered = (this::processDialogue);
 
     public TalkState(Game game, Npc npc) {
         this.game = game;
@@ -25,19 +24,11 @@ public class TalkState implements GameState {
     public void enter() {
         game.getView().disableInputField();
         displayOptions();
-        game.getView().addUIListener(entered);
     }
 
     @Override
     public void exit() {
         game.getView().enableInputField();
-        game.getView().removeUIListener(entered);
-    }
-
-    private void processDialogue(String input) {
-        int choice = processUserChoice(input);
-        if (choice == -1) return;
-        advanceDialogue(choice);
     }
 
     private void advanceDialogue(int choice) {
@@ -74,28 +65,10 @@ public class TalkState implements GameState {
             });
             game.getView().addButton(button, dialogue.getMessage());
         }
+        Sound[] speechSound = new Sound[] {
+                Sound.MaleSpeech1, Sound.MaleSpeech2, Sound.MaleSpeech3, Sound.MaleSpeech4, Sound.MaleSpeech5
+        };
+        game.getSoundPlayer().playSoundOnDifferentThread(speechSound[(int) (Math.random() * speechSound.length)]);
 
-    }
-
-    private int processUserChoice(String userChoice) {
-        int choice;
-
-        if (userChoice.split(" ").length > 1) {
-            game.getView().addText("Please just enter a single letter corresponding to a response.");
-            return -1;
-        }
-
-        userChoice = userChoice.toLowerCase().trim();
-        if (userChoice.length() != 1) {
-            game.getView().addText("Please just enter a single letter corresponding to a response.");
-            return -1;
-        }
-
-        choice = userChoice.charAt(0) - 'a';
-        if (choice < 0 || choice >= dialogue.getResponses().size()) {
-            game.getView().addText(userChoice + " is not a valid choice.");
-            return -1;
-        }
-        return choice;
     }
 }

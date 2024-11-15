@@ -57,7 +57,7 @@ public class SoundPlayer<T extends Enum<T> & FilePathProvider> {
 
     public void stopSound(T soundVariant) {
         Clip clip = soundClips.get(soundVariant);
-        clip.stop();
+        if (clip != null) clip.stop();
     }
 
     /**

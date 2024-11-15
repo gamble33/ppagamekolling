@@ -1,0 +1,15 @@
+{
+  "name": "HuntingCamp",
+  "title": "Hunter's Camp",
+  "description": "at the tribe's camp of the hunters.",
+  "music": "MusicCamp",
+  "exits": [
+    {
+      "name": "south",
+      "room": "Home"
+    }
+  ],
+  "npcs": [
+    "Tamerlan"
+  ]
+}

@@ -15,9 +15,9 @@ public class LocationDisplay {
     }
 
     public void showLocationSummary(Location location) {
-        String description = "You are " + location.getShortDescription() +
-                ".\n" + getExitString(location);
+        String description = "You are " + location.getShortDescription();
         view.addText(description);
+        displayExits(location);
         displayNpcs(location);
     }
 
@@ -39,12 +39,12 @@ public class LocationDisplay {
      *
      * @return Details of the location's exits.
      */
-    private String getExitString(Location location) {
+    public void displayExits(Location location) {
         String returnString = "Exits:";
         Set<String> keys = location.getExits().keySet();
         for (String exit : keys) {
             returnString += " " + exit;
         }
-        return returnString;
+        view.addText(returnString);
     }
 }

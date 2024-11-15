@@ -23,7 +23,7 @@ public class GoCommand extends Command {
     public boolean execute(RawCommand command) {
         if (!command.hasArgs()) {
             // if there is no second argument, we don't know where to go...
-            game.getView().addText("Go where?");
+            game.getView().addText("type go <direction>");
             return false;
         }
 
@@ -35,10 +35,11 @@ public class GoCommand extends Command {
 
         if (nextLocation == null) {
             game.getView().addText(direction + " is not a valid direction!");
+            locationDisplay.displayExits(currentLocation);
             return false;
         }
 
-        game.MoveTo(nextLocation);
+        game.moveTo(nextLocation);
         locationDisplay.showLocationSummary(nextLocation);
         previousLocation = currentLocation;
         setRawCommand(command);
@@ -47,7 +48,7 @@ public class GoCommand extends Command {
 
     @Override
     public void undo() {
-        game.MoveTo(previousLocation);
+        game.moveTo(previousLocation);
         locationDisplay.showLocationSummary(previousLocation);
     }
 }

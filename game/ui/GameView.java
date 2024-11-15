@@ -5,7 +5,10 @@ import game.sound.Sound;
 import game.sound.SoundPlayer;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
@@ -13,8 +16,10 @@ public class GameView {
     private static final int MAXIMUM_SCROLLABLE_COMPONENTS = 20;
 
     private JPanel scrollablePanel;
+    private JScrollPane scrollPane;
     private GridBagConstraints gbc;
     private JTextField inputField;
+    private JLabel titleLabel;
 
     private final Queue<JComponent> scrollableComponents = new LinkedList<>();
     private final Map<String, List<JComponent>> taggedComponents = new HashMap<>();
@@ -51,7 +56,7 @@ public class GameView {
         // Title
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel titleLabel = new JLabel("Kazakh Mountains");
+        titleLabel = new JLabel("Kazakh Mountains");
         titlePanel.add(titleLabel);
         frame.add(titlePanel, BorderLayout.NORTH);
 
@@ -65,7 +70,7 @@ public class GameView {
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(10, 0, 10, 0);
-        JScrollPane scrollPane = new JScrollPane(scrollablePanel);
+        scrollPane = new JScrollPane(scrollablePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
 
         inputField = new JTextField(20);
@@ -85,9 +90,7 @@ public class GameView {
         frame.setVisible(true);
 
 
-        SoundPlayer<Sound> soundPlayer = new SoundPlayer<Sound>();
-        soundPlayer.loadSounds(Sound.class);
-        soundPlayer.playSound(Sound.MusicHome, false);
+
     }
 
     public void addButton(JButton button, String tag) {
@@ -100,6 +103,7 @@ public class GameView {
             removeComponents();
             taggedComponents.remove(tag);
         });
+        scrollTo(button);
     }
 
     public void addText(String text) {
@@ -111,11 +115,23 @@ public class GameView {
     }
 
     public void addTextLabel(String text) {
-        JComponent component = new JLabel(text);
+        FadeInLabel component = new FadeInLabel(text);
         scrollablePanel.add(component, gbc);
         scrollablePanel.repaint();
         scrollablePanel.revalidate();
         scrollableComponents.add(component);
+        scrollTo(component);
+        component.startFadeIn();
+    }
+
+    public void setTitle(String title) {
+        titleLabel.setText(title);
+    }
+
+    private void scrollTo(JComponent component) {
+        SwingUtilities.invokeLater(() -> {
+            scrollablePanel.scrollRectToVisible(component.getBounds());
+        });
     }
 
     private void splitText(String text) {
@@ -162,10 +178,40 @@ public class GameView {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            if (backgroundImage != null) {
-                // Draw the background image
-                g.drawImage(backgroundImage, 0, 0, this);
-            }
+            g.drawImage(backgroundImage, 0, 0, null);
+        }
+    }
+
+    static class FadeInLabel extends JLabel {
+        private float alpha = 0.0f; // initial transparency
+
+        public FadeInLabel(String text) {
+            super(text);
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setFont(new Font("Sans-Serif", Font.PLAIN, 18));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            super.paintComponent(g2d);
+            g2d.dispose();
+        }
+
+        public void startFadeIn() {
+            Timer timer = new Timer(40, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    alpha += 0.05f;
+                    if (alpha >= 1.0f) {
+                        alpha = 1.0f;
+                        ((Timer) e.getSource()).stop();
+                    }
+                    repaint();
+                }
+            });
+            timer.start();
         }
     }
 }

@@ -1,13 +1,16 @@
 {
-   "name": "Home",
-   "description": "home. This is your tribal village",
-   "exits": [
+  "name": "Home",
+  "title": "Tribal Village Home",
+  "description": "home. This is your tribal village",
+  "music": "MusicHome",
+  "exits": [
     {
-        "name": "east",
-        "room": "Outside"
-     }
-    ],
-    "npcs": [
-      "Tamerlan"
-    ]
- }
+      "name": "north",
+      "room": "HuntingCamp"
+    },
+    {
+      "name": "east",
+      "room": "Outside"
+    }
+  ]
+}

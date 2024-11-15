@@ -2,6 +2,10 @@ package game.states;
 
 import game.Game;
 import game.LocationDisplay;
+import game.commands.HelpCommand;
+import game.commands.RawCommand;
+
+import java.util.ArrayList;
 
 public class IntroState implements GameState {
     private final Game game;
@@ -13,6 +17,7 @@ public class IntroState implements GameState {
     @Override
     public void enter() {
         printWelcome();
+        HelpCommand.printHelp(game.getView());
         game.changeState(new CommandState(game));
     }
 

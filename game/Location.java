@@ -25,6 +25,8 @@ public class Location
     private final String description;
     private final Map<String, Location> exits;        // stores exits of this room.
     private final List<Npc> npcs;
+    private final String title;
+    private String music;
 
     /**
      * Create a room described "description". Initially, it has
@@ -32,8 +34,9 @@ public class Location
      * "an open court yard".
      * @param description The room's description.
      */
-    public Location(String description)
+    public Location(String title, String description)
     {
+        this.title = title;
         this.description = description;
         this.exits = new HashMap<>();
         this.npcs = new ArrayList<>();
@@ -83,6 +86,10 @@ public class Location
         return description;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     /**
      * Return the room that is reached if we go from this room in direction
      * "direction". If there is no room in that direction, return null.
@@ -96,6 +103,18 @@ public class Location
 
     public Map<String, Location> getExits() {
         return exits;
+    }
+
+    public void setMusic(String music) {
+        this.music = music;
+    }
+
+    public String getMusic() {
+        return music;
+    }
+
+    public boolean hasMusic() {
+        return music != null;
     }
 }
 
