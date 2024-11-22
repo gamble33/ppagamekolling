@@ -1,7 +1,9 @@
 import game.Game;
 import game.Location;
+import game.factories.ItemFactory;
 import game.factories.NpcFactory;
 import game.factories.LocationFactory;
+import jsonParser.JSONObject;
 import jsonParser.JSONParser;
 import persistence.GameContentFile;
 import persistence.JsonReader;
@@ -12,11 +14,18 @@ public class Main {
     }
     
     public void initializeGame() {
-        for (GameContentFile npcFile : new JsonReader().readGameDataFiles("npc")) {
+        JsonReader reader = new JsonReader();
+
+        reader.readGameDataFiles("item").forEach(file -> {
+            JSONObject json = new JSONParser(file.getContents()).parse();
+            ItemFactory.createItem(json);
+        });
+
+        for (GameContentFile npcFile : reader.readGameDataFiles("npc")) {
             NpcFactory.createNpc(new JSONParser(npcFile.getContents()).parse());
         }
 
-        for (GameContentFile roomFile : new JsonReader().readGameDataFiles("location")) {
+        for (GameContentFile roomFile : reader.readGameDataFiles("location")) {
             LocationFactory.createRoom(new JSONParser(roomFile.getContents()).parse());
         }
         LocationFactory.injectDependencies();

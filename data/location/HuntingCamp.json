@@ -11,5 +11,11 @@
   ],
   "npcs": [
     "Tamerlan"
+  ],
+  "items": [
+    {
+      "id": "HorseMeat",
+      "quantity": 2
+    }
   ]
 }

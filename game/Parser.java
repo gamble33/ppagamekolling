@@ -39,7 +39,7 @@ public class Parser
             arguments.add(tokenizer.next());
         }
 
-        String commandName = arguments.get(0);
+        String commandName = arguments.stream().findFirst().orElse("");
 
         return new RawCommand(commandName, arguments.subList(1, arguments.size()));
     }

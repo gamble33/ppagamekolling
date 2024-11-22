@@ -1,5 +1,7 @@
 package game;
 
+import game.item.Inventory;
+import game.item.LocationItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +11,8 @@ import java.util.Map;
 /**
  * Class Room - a room in an adventure game.
  * <p>
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * This class is part of the "World of Zuul" application.
+ * "World of Zuul" is a very simple, text based adventure game.
  * <p>
  * A "Room" represents one location in the scenery of the game.  It is 
  * connected to other rooms via exits.  For each existing exit, the room 
@@ -25,6 +27,7 @@ public class Location
     private final String description;
     private final Map<String, Location> exits;        // stores exits of this room.
     private final List<Npc> npcs;
+    private final Inventory locationInventory;
     private final String title;
     private String music;
 
@@ -40,6 +43,7 @@ public class Location
         this.description = description;
         this.exits = new HashMap<>();
         this.npcs = new ArrayList<>();
+        this.locationInventory = new Inventory();
     }
 
     public void addNpc(Npc npc) {
@@ -48,6 +52,10 @@ public class Location
 
     public List<Npc> getNpcList() {
         return npcs;
+    }
+
+    public Inventory getLocationInventory() {
+        return locationInventory;
     }
 
     public Npc getNpc(String name) {

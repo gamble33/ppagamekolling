@@ -1,0 +1,8 @@
+{
+  "id": "HorseMeat",
+  "name": "Horse Meat",
+  "weight": 0.4,
+  "canPickUp": true,
+  "type": "FoodItem",
+  "saturation": 20.0
+}

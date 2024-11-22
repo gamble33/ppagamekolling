@@ -2,6 +2,9 @@ package game.factories;
 
 import game.Location;
 import game.Npc;
+import game.item.InventoryItem;
+import game.item.Item;
+import game.item.LocationItem;
 import jsonParser.JSONObject;
 
 import java.util.HashMap;
@@ -33,6 +36,17 @@ public class LocationFactory {
                 Npc npc = NpcFactory.npcs.get(npcName);
                 location.addNpc(npc);
             }
+        }
+
+        if (json.has("items")) {
+            json.getJsonArray("items").<JSONObject>getList().forEach(itemJSON -> {
+                String id = itemJSON.getString("id");
+                String itemDescription = itemJSON.getString("description");
+                int quantity = itemJSON.getInteger("quantity");
+                Item item = ItemFactory.getItem(id);
+                InventoryItem locationItem = new InventoryItem(item, quantity);
+                location.getLocationInventory().addItem(locationItem);
+            });
         }
         
         rooms.put(name, location);

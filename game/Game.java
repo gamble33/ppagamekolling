@@ -1,5 +1,6 @@
 package game;
 
+import game.item.Inventory;
 import game.sound.Sound;
 import game.sound.SoundPlayer;
 import game.states.GameState;
@@ -25,12 +26,18 @@ import game.ui.GameView;
 
 public class Game 
 {
+    private static final float MAX_HEALTH = 100f;
+    private static final float MAX_SATURATION = 100f;
+
     private final GameView view;
     private final SoundPlayer<Sound> soundPlayer;
 
     private GameState gameState;
     private Location currentLocation;
     private Sound currentMusic;
+    private Inventory inventory;
+    private float saturation;
+    private float health;
 
     /**
      * Create the game and initialise its starting location.
@@ -43,6 +50,9 @@ public class Game
         soundPlayer = new SoundPlayer<Sound>();
         soundPlayer.loadSounds(Sound.class);
 
+        this.inventory = new Inventory();
+        this.saturation = MAX_SATURATION;
+        this.health = MAX_HEALTH;
         moveTo(startingLocation, false);
         this.gameState = new IntroState(this);
     }
@@ -62,12 +72,54 @@ public class Game
         // TODO
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public Location getCurrentLocation() {
         return currentLocation;
     }
 
     public void moveTo(Location newLocation) {
         moveTo(newLocation, true);
+    }
+
+    public void increaseSaturation(float amount) {
+        saturation += amount;
+        if (saturation > MAX_SATURATION) {
+            float healAmount = saturation - MAX_SATURATION;
+            saturation = MAX_SATURATION;
+            heal(healAmount);
+
+        }
+    }
+
+    public void decreaseSaturation(float amount) {
+        saturation -= amount;
+        if (saturation < 0f) saturation = 0f;
+    }
+
+    public float getHealth() {
+        return health;
+    }
+
+    public float getSaturation() {
+        return saturation;
+    }
+
+    public void heal(float amount) {
+        health += amount;
+        if (health > MAX_HEALTH) {
+            health = MAX_HEALTH;
+        }
+    }
+
+    public void damage(float amount) {
+        health -= amount;
+        if (health < 0f) {
+            health = 0f;
+            die();
+        }
     }
 
     public void moveTo(Location newLocation, boolean playSound) {
@@ -80,6 +132,7 @@ public class Game
         }
         if (playSound)
             soundPlayer.playSoundOnDifferentThread(Sound.HorseTrot);
+        decreaseSaturation(2f);
     }
 
     public GameView getView() {
@@ -88,5 +141,9 @@ public class Game
 
     public SoundPlayer<Sound> getSoundPlayer() {
         return soundPlayer;
+    }
+
+    private void die() {
+        // TODO
     }
 }

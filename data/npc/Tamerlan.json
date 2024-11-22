@@ -2,6 +2,7 @@
     "name": "Tamerlan",
     "description": "Tribe Hunter",
     "age": 24,
+    "behaviour": "neutral",
     "dialogue": [
         {
             "id": "start",

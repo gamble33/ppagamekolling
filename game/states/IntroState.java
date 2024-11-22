@@ -30,8 +30,8 @@ public class IntroState implements GameState {
     private void printWelcome()
     {
         StringBuilder welcome = new StringBuilder();
-        welcome.append("Welcome to the World of Zuul! ");
-        welcome.append("World of Zuul is a new, incredibly boring adventure game. ");
+        welcome.append("Welcome to the World of Dudi! ");
+        welcome.append("World of Dudi is a new, incredibly boring adventure game. ");
         welcome.append("Type 'help' if you need help. ");
         game.getView().addText(welcome.toString());
         new LocationDisplay(game.getView()).showLocationSummary(game.getCurrentLocation());

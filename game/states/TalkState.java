@@ -2,7 +2,6 @@ package game.states;
 
 import game.Game;
 import game.Npc;
-import game.callbacks.TextEntered;
 import game.dialogue.Dialogue;
 import game.dialogue.Response;
 import game.sound.Sound;

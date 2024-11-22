@@ -11,13 +11,18 @@ import java.util.Set;
 import java.util.Stack;
 
 public class CommandState implements GameState {
-    private static final Map<String, Class<? extends Command>> commandDispatch = Map.of(
-            "quit", QuitCommand.class,
-            "help", HelpCommand.class,
-            "go", GoCommand.class,
-            "undo", UndoCommand.class,
-            "redo", RedoCommand.class,
-            "talk", TalkCommand.class
+    private static final Map<String, Class<? extends Command>> commandDispatch = Map.ofEntries(
+            Map.entry("quit", QuitCommand.class),
+            Map.entry("help", HelpCommand.class),
+            Map.entry("go", GoCommand.class),
+            Map.entry("undo", UndoCommand.class),
+            Map.entry("redo", RedoCommand.class),
+            Map.entry("talk", TalkCommand.class),
+            Map.entry("take", TakeCommand.class),
+            Map.entry("drop", DropCommand.class),
+            Map.entry("use", UseCommand.class),
+            Map.entry("health", HealthCommand.class),
+            Map.entry("inspect", InspectCommand.class)
     );
     private final Game game;
     private final Parser parser;

@@ -1,5 +1,8 @@
 package game;
 
+import game.item.Inventory;
+import game.item.InventoryItem;
+import game.item.LocationItem;
 import game.ui.GameView;
 
 import java.util.Set;
@@ -19,6 +22,7 @@ public class LocationDisplay {
         view.addText(description);
         displayExits(location);
         displayNpcs(location);
+        location.getLocationInventory().displayItems("These items lay around you: ", view);
     }
 
     public void displayNpcs(Location location) {
