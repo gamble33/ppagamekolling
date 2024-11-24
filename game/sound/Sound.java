@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Sound implements FilePathProvider {
-    TakeItem("data/sound/pack.wav"),
+    TakeItem("data/sound/take_item.wav"),
     DropItem("data/sound/drop.wav"),
     Eat("data/sound/eat.wav"),
     MusicCamp("data/sound/camp.wav"),
