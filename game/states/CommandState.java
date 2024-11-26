@@ -22,7 +22,8 @@ public class CommandState implements GameState {
             Map.entry("drop", DropCommand.class),
             Map.entry("use", UseCommand.class),
             Map.entry("health", HealthCommand.class),
-            Map.entry("inspect", InspectCommand.class)
+            Map.entry("inspect", InspectCommand.class),
+            Map.entry("attack", AttackCommand.class)
     );
     private final Game game;
     private final Parser parser;

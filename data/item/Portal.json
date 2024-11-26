@@ -1,0 +1,7 @@
+{
+  "id": "Portal",
+  "name": "Arcane Portal",
+  "weight": 1000000.0,
+  "canPickUp": false,
+  "type": "Portal"
+}

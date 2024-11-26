@@ -1,8 +1,7 @@
 package game.ui;
 
+import game.BackgroundImage;
 import game.callbacks.TextEntered;
-import game.sound.Sound;
-import game.sound.SoundPlayer;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -14,12 +13,16 @@ import java.util.List;
 
 public class GameView {
     private static final int MAXIMUM_SCROLLABLE_COMPONENTS = 20;
+    private static final int WINDOW_WIDTH = 896;
+    private static final int WINDOW_HEIGHT = 596;
 
     private JPanel scrollablePanel;
+    private BackgroundPanel backgroundPanel;
     private JScrollPane scrollPane;
     private GridBagConstraints gbc;
     private JTextField inputField;
     private JLabel titleLabel;
+    JFrame frame;
 
     private final Queue<JComponent> scrollableComponents = new LinkedList<>();
     private final Map<String, List<JComponent>> taggedComponents = new HashMap<>();
@@ -47,11 +50,26 @@ public class GameView {
         inputField.setVisible(true);
     }
 
+    public void end() {
+        disableInputField();
+    }
+
+    public void close() {
+        frame.dispose();
+        System.exit(0);
+    }
+
     public void show() {
-        JFrame frame = new JFrame("Game");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(720, 480);
+        // Main window in which the game occurs
+        frame = new JFrame("Game");
+        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setLayout(new BorderLayout());
+
+        ImageIcon imageIcon = new ImageIcon("data/images/bg.png");
+        backgroundPanel = new BackgroundPanel(imageIcon.getImage());
+        backgroundPanel.setLayout(new BorderLayout());
+
+        frame.setContentPane(backgroundPanel);
 
         // Title
         JPanel titlePanel = new JPanel();
@@ -61,9 +79,7 @@ public class GameView {
         frame.add(titlePanel, BorderLayout.NORTH);
 
         // Scrollable Region
-        ImageIcon imageIcon = new ImageIcon("data/images/home.png");
-        BackgroundPanel scrollablePanel = new BackgroundPanel(imageIcon.getImage());
-        this.scrollablePanel = scrollablePanel;
+        scrollablePanel = new JPanel();
         scrollablePanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -71,11 +87,15 @@ public class GameView {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(10, 0, 10, 0);
         scrollPane = new JScrollPane(scrollablePanel);
+        scrollablePanel.setOpaque(false);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
         frame.add(scrollPane, BorderLayout.CENTER);
 
+        // Text input field for commands
         inputField = new JTextField(20);
-        frame.add(inputField, BorderLayout.SOUTH);
         inputField.addActionListener(e -> {
+            // When a command is entered, all listeners are called. This is the observer design pattern.
             checkTooManyComponents();
             listeners.removeAll(listenersToRemove);
             listeners.addAll(listenersToAdd);
@@ -86,11 +106,15 @@ public class GameView {
             inputField.setText("");
             listeners.forEach(listener -> listener.onEnter(input));
         });
+        inputField.setOpaque(false);
+        frame.add(inputField, BorderLayout.SOUTH);
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
 
-
-
+    public void setBackgroundImage(BackgroundImage image) {
+        backgroundPanel.setBackgroundImage(new ImageIcon(image.getFilePath()).getImage());
     }
 
     public void addButton(JButton button, String tag) {
@@ -169,7 +193,7 @@ public class GameView {
     }
 
     static class BackgroundPanel extends JPanel {
-        private final Image backgroundImage;
+        private Image backgroundImage;
 
         public BackgroundPanel(Image backgroundImage) {
             this.backgroundImage = backgroundImage;
@@ -180,8 +204,17 @@ public class GameView {
             super.paintComponent(g);
             g.drawImage(backgroundImage, 0, 0, null);
         }
+
+        public void setBackgroundImage(Image backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
     }
 
+    /**
+     * A custom JLabel that provides a fade-in effect for text.
+     * The fade-in effect is controlled by a Timer that gradually increases the alpha value until the label becomes
+     * fully opaque. The fading effect can be started by invoking the <code>startFadeIn()</code> method.
+     */
     static class FadeInLabel extends JLabel {
         private float alpha = 0.0f; // initial transparency
 

@@ -1,0 +1,8 @@
+{
+  "id": "Knife",
+  "name": "Knife",
+  "weight": 1.0,
+  "canPickUp": true,
+  "damage": 25.0,
+  "type": "Item"
+}

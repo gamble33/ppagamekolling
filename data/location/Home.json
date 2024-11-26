@@ -3,6 +3,7 @@
   "title": "Tribal Village Home",
   "description": "home. This is your tribal village",
   "music": "MusicHome",
+  "image": "Tribe",
   "exits": [
     {
       "name": "north",
@@ -11,6 +12,14 @@
     {
       "name": "east",
       "room": "Outside"
+    },
+    {
+      "name": "west",
+      "room": "MagicTransporter"
+    },
+    {
+      "name": "palace",
+      "room": "Palace"
     }
   ]
 }

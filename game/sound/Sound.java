@@ -4,11 +4,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Sound implements FilePathProvider {
-    TakeItem("data/sound/take_item.wav"),
+    Attack("data/sound/attack.wav"),
+    Damage("data/sound/damage.wav"),
+    Teleport("data/sound/teleport.wav"),
+    TakeItem("data/sound/pack.wav"),
     DropItem("data/sound/drop.wav"),
     Eat("data/sound/eat.wav"),
     MusicCamp("data/sound/camp.wav"),
     MusicHome("data/sound/Balzhan.wav"),
+
+    /**
+     * Credit: A cappella - Persian loneliness by Vrymaa
+     * -- <a href="https://freesound.org/s/738780/">freesound.org</a> -- License: Attribution 4.0
+     */
+    MusicLoss("data/sound/loss.wav"), //
+
+    /**
+     * Credit: Au dé qui Roule
+     * <a href="https://youtu.be/a9_saAUM-yk?si=VK8aXpi7q49iFYmG">YouTube Video</a>
+     */
+    MusicIndoorAmbience("data/sound/indoor_ambience.wav"),
     HorseTrot("data/sound/horse_trot.wav"),
     MaleSpeech1("data/sound/male_speech_1.wav"),
     MaleSpeech2("data/sound/male_speech_2.wav"),

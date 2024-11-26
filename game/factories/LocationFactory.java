@@ -10,6 +10,7 @@ import jsonParser.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class LocationFactory {
     public static Map<String, Location> rooms = new HashMap<>();
 
@@ -24,6 +25,10 @@ public class LocationFactory {
             location.setMusic(music);
         }
 
+        if (json.has("image")) {
+            String image = json.getString("image");
+            location.setImage(image);
+        }
 
         for (JSONObject exit : json.getJsonArray("exits").<JSONObject>getList()) {
             String exitName = exit.getString("name");

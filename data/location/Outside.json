@@ -2,6 +2,7 @@
    "name": "Outside",
    "title": "Wilderness",
    "description": "Outside",
+   "image": "Wilderness",
    "exits": [
     {
         "name": "west",

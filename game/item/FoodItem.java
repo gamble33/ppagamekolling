@@ -6,8 +6,8 @@ import game.sound.Sound;
 public class FoodItem extends Item {
     private final float saturation;
 
-    public FoodItem(String name, float weight, boolean canPickUp, float saturation) {
-        super(name, weight, canPickUp);
+    public FoodItem(String name, float weight, boolean canPickUp, float damage, float saturation) {
+        super(name, weight, canPickUp, damage);
         this.saturation = saturation;
     }
 

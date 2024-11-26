@@ -23,7 +23,7 @@ public class JSONArray {
         for (Object object : objects) {
             if (object instanceof JSONObject) ((JSONObject) object).debugPrintTree(depth);
             else if (object instanceof JSONArray) ((JSONArray) object).debugPrintArray(depth);
-            else System.out.print(String.valueOf(object));
+            else System.out.print(object);
             System.out.print(", ");
         }
         System.out.print("]");

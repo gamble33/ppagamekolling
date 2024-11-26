@@ -1,0 +1,8 @@
+{
+  "id": "Cheese",
+  "name": "Cheese",
+  "weight": 0.4,
+  "canPickUp": true,
+  "type": "FoodItem",
+  "saturation": 10.0
+}

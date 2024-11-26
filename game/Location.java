@@ -30,6 +30,7 @@ public class Location
     private final Inventory locationInventory;
     private final String title;
     private String music;
+    private String image;
 
     /**
      * Create a room described "description". Initially, it has
@@ -46,8 +47,20 @@ public class Location
         this.locationInventory = new Inventory();
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public void addNpc(Npc npc) {
         npcs.add(npc);
+    }
+
+    public void removeNpc(Npc npc) {
+        npcs.remove(npc);
     }
 
     public List<Npc> getNpcList() {
@@ -123,6 +136,10 @@ public class Location
 
     public boolean hasMusic() {
         return music != null;
+    }
+
+    public boolean hasImage() {
+        return image != null;
     }
 }
 

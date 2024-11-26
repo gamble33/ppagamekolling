@@ -2,6 +2,9 @@
     "name": "Tamerlan",
     "description": "Tribe Hunter",
     "age": 24,
+    "maxHealth": 100.0,
+    "damage": 75.0,
+    "damageDescription": "hits you with a piercing slash, wielding his curved blade 'Almas Kylysh'.",
     "behaviour": "neutral",
     "dialogue": [
         {

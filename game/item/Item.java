@@ -6,11 +6,17 @@ public class Item {
     private final String name;
     private final float weight;
     private final boolean canPickUp;
+    private final float damage;
 
-    public Item(String name, float weight, boolean canPickUp) {
+    public Item(String name, float weight, boolean canPickUp, float damage) {
         this.weight = weight;
         this.name = name;
         this.canPickUp = canPickUp;
+        this.damage = damage;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 
     public boolean canPickUp() {

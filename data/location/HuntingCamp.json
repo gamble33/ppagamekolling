@@ -16,6 +16,10 @@
     {
       "id": "HorseMeat",
       "quantity": 2
+    },
+    {
+      "id": "Knife",
+      "quantity": 1
     }
   ]
 }

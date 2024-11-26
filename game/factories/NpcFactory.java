@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import game.Damage;
 import game.dialogue.Dialogue;
 import game.Npc;
 import game.dialogue.Response;
+import game.enums.Behaviour;
 import jsonParser.JSONObject;
 
 public class NpcFactory {
@@ -17,8 +19,21 @@ public class NpcFactory {
         String name = json.getString("name");
         String description = json.getString("description");
         int age = json.getInteger("age");
+        float maxHealth = json.getFloat("maxHealth");
 
-        Npc npc = new Npc(name, description, age);
+        Behaviour behaviour = switch (json.getString("behaviour")) {
+            case "passive" -> Behaviour.Passive;
+            case "neutral" -> Behaviour.Neutral;
+            case "aggressive" -> Behaviour.Aggressive;
+            default -> throw new RuntimeException("Invalid behaviour json string.");
+        };
+
+        behaviour.setDamage(new Damage(
+                json.getFloat("damage"),
+                json.getString("damageDescription")
+        ));
+
+        Npc npc = new Npc(name, description, age, maxHealth, behaviour);
 
         if (json.has("dialogue")) {
             json.getJsonArray("dialogue").<JSONObject>getList().forEach(jsonDialogue -> {

@@ -8,8 +8,8 @@ import game.states.IntroState;
 import game.ui.GameView;
 
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
+ *  This class is the main class of the "World of Dudi" application.
+ *  "World of Dudi" is a very simple, text based adventure game.  Users
  *  can walk around some scenery. That's all. It should really be extended 
  *  to make it more interesting!
  * <p>
@@ -20,14 +20,15 @@ import game.ui.GameView;
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Michael Kölling, David J. Barnes, George Novachuk
+ * @version 2024.11.28
  */
 
 public class Game 
 {
     private static final float MAX_HEALTH = 100f;
     private static final float MAX_SATURATION = 100f;
+    private static final float HUNGER_DUE_TO_MOVING = 5f;
 
     private final GameView view;
     private final SoundPlayer<Sound> soundPlayer;
@@ -35,7 +36,7 @@ public class Game
     private GameState gameState;
     private Location currentLocation;
     private Sound currentMusic;
-    private Inventory inventory;
+    private final Inventory inventory;
     private float saturation;
     private float health;
 
@@ -47,7 +48,7 @@ public class Game
         this.view = new GameView();
         view.show();
 
-        soundPlayer = new SoundPlayer<Sound>();
+        soundPlayer = new SoundPlayer<>();
         soundPlayer.loadSounds(Sound.class);
 
         this.inventory = new Inventory();
@@ -69,7 +70,7 @@ public class Game
     }
 
     public void requestQuit() {
-        // TODO
+        view.close();
     }
 
     public Inventory getInventory() {
@@ -115,6 +116,7 @@ public class Game
     }
 
     public void damage(float amount) {
+        soundPlayer.playSoundOnDifferentThread(Sound.Damage);
         health -= amount;
         if (health < 0f) {
             health = 0f;
@@ -125,14 +127,18 @@ public class Game
     public void moveTo(Location newLocation, boolean playSound) {
         this.currentLocation = newLocation;
         view.setTitle(currentLocation.getTitle());
+
+        // Handle changing background music and image.
         soundPlayer.stopSound(currentMusic);
         if (currentLocation.hasMusic()) {
-            currentMusic = Sound.fromString(currentLocation.getMusic());
-            soundPlayer.playSoundOnDifferentThread(currentMusic, true);
+            switchMusic(Sound.fromString(currentLocation.getMusic()));
         }
-        if (playSound)
-            soundPlayer.playSoundOnDifferentThread(Sound.HorseTrot);
-        decreaseSaturation(2f);
+        if (currentLocation.hasImage()) {
+            view.setBackgroundImage(BackgroundImage.fromString(currentLocation.getImage()));
+        }
+        if (playSound) soundPlayer.playSoundOnDifferentThread(Sound.HorseTrot);
+
+        decreaseSaturation(HUNGER_DUE_TO_MOVING);
     }
 
     public GameView getView() {
@@ -143,7 +149,33 @@ public class Game
         return soundPlayer;
     }
 
+    public void endGame() {
+        view.end();
+
+        // Wait 5 seconds on new thread, then quit application.
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                System.out.println("Couldn't sleep thread.");
+            }
+            requestQuit();
+        }).start();
+
+
+
+    }
+
+    private void switchMusic(Sound newMusic) {
+        soundPlayer.stopSound(currentMusic);
+        currentMusic = newMusic;
+        soundPlayer.playSoundOnDifferentThread(newMusic, true);
+    }
+
     private void die() {
-        // TODO
+        view.addText("☠☠ You died. Game over. ☠☠");
+        view.setBackgroundImage(BackgroundImage.Death);
+        switchMusic(Sound.MusicLoss);
+        endGame();
     }
 }

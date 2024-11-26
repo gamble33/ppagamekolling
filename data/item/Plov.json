@@ -1,0 +1,8 @@
+{
+  "id": "Plov",
+  "name": "Plov",
+  "weight": 0.4,
+  "canPickUp": true,
+  "type": "FoodItem",
+  "saturation": 40.0
+}

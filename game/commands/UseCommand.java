@@ -3,7 +3,6 @@ package game.commands;
 import game.Game;
 import game.item.Inventory;
 import game.item.InventoryItem;
-import game.sound.Sound;
 import game.states.CommandState;
 
 public class UseCommand extends Command {

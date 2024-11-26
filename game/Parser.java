@@ -41,6 +41,7 @@ public class Parser
 
         String commandName = arguments.stream().findFirst().orElse("");
 
+        if (arguments.isEmpty()) return new RawCommand(commandName, arguments);
         return new RawCommand(commandName, arguments.subList(1, arguments.size()));
     }
 }

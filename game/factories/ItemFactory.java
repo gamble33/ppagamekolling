@@ -2,6 +2,7 @@ package game.factories;
 
 import game.item.FoodItem;
 import game.item.Item;
+import game.item.PortalItem;
 import jsonParser.JSONObject;
 
 import java.util.HashMap;
@@ -21,12 +22,15 @@ public class ItemFactory {
         boolean canPickUp = json.getBoolean("canPickUp");
         String type = json.getString("type");
 
+        float damage = json.has("damage") ? json.getFloat("damage") : 1.0f;
+
         Item item = switch (type) {
             case "FoodItem" -> {
                 float saturation = json.getFloat("saturation");
-                yield new FoodItem(name, weight, canPickUp, saturation);
+                yield new FoodItem(name, weight, canPickUp, damage, saturation);
             }
-            case "Item" -> new Item(name, weight, canPickUp);
+            case "Portal" -> new PortalItem(name, weight, canPickUp, damage);
+            case "Item" -> new Item(name, weight, canPickUp, damage);
             default -> null;
         };
 

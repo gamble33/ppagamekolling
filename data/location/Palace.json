@@ -1,0 +1,27 @@
+{
+  "name": "Palace",
+  "title": "Tribal Palace of Leader",
+  "description": "in your leader's palace. It is grand and cosy.",
+  "music": "MusicIndoorAmbience",
+  "image": "Indoor",
+  "exits": [
+    {
+      "name": "outside",
+      "room": "Home"
+    }
+  ],
+  "items": [
+    {
+      "id": "HorseMeat",
+      "quantity": 1
+    },
+    {
+      "id": "Cheese",
+      "quantity": 3
+    },
+    {
+      "id": "Plov",
+      "quantity": 1
+    }
+  ]
+}
