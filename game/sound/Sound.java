@@ -12,7 +12,7 @@ public enum Sound implements FilePathProvider {
     Attack("data/sound/attack.wav"),
     Damage("data/sound/damage.wav"),
     Teleport("data/sound/teleport.wav"),
-    TakeItem("data/sound/pack.wav"),
+    TakeItem("data/sound/grab_item.wav"),
     DropItem("data/sound/drop.wav"),
     Eat("data/sound/eat.wav"),
     MusicCamp("data/sound/camp.wav"),
