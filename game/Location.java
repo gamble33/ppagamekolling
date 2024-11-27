@@ -1,11 +1,13 @@
 package game;
 
+import game.enums.Behaviour;
 import game.item.Inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Class Room - a room in an adventure game.
@@ -24,7 +26,7 @@ import java.util.Map;
 public class Location
 {
     private final String description;
-    private final Map<String, Location> exits;        // stores exits of this room.
+    private final Map<String, Exit> exits;        // stores exits of this room.
     private final List<Npc> npcs;
     private final Inventory locationInventory;
     private final String title;
@@ -34,7 +36,7 @@ public class Location
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
+     * "an open courtyard".
      * @param description The room's description.
      */
     public Location(String title, String description)
@@ -43,7 +45,9 @@ public class Location
         this.description = description;
         this.exits = new HashMap<>();
         this.npcs = new ArrayList<>();
-        this.locationInventory = new Inventory();
+
+        // Location inventories can hold as many items as one could dream of.
+        this.locationInventory = new Inventory(Float.MAX_VALUE);
     }
 
     public String getImage() {
@@ -91,13 +95,49 @@ public class Location
     }
 
     /**
-     * Define an exit from this room.
-     * @param direction The direction of the exit.
-     * @param neighbor  The room to which the exit leads.
+     * Determines if the player can leave the current location.
+     * The player can leave if there are no NPCs with aggressive behavior or NPCs with required dialogue.
+     *
+     * @return {@code true} if the player can leave, {@code false} otherwise.
      */
-    public void setExit(String direction, Location neighbor)
+    public boolean canLeave() {
+        return npcs
+                .stream()
+                .noneMatch(npc -> npc.getBehaviour().equals(Behaviour.Aggressive) || npc.isRequiredDialogue());
+    }
+
+    /**
+     * Generates a message explaining why the player cannot leave the current location.
+     * This method checks for NPCs with aggressive behavior and lists their names
+     * as obstacles preventing the player from leaving the location.
+     *
+     * @return A string message listing aggressive NPCs and stating they are stopping the player from leaving.
+     */
+    public String getLeaveReason() {
+        if (hasAggressiveNpc()) {
+            return npcs
+                    .stream()
+                    .filter(npc -> npc.getBehaviour().equals(Behaviour.Aggressive))
+                    .map(npc -> npc.getName() + ", ")
+                    .collect(Collectors.joining()) + " stand(s) in the way. Stopping you from leaving.";
+        }
+
+        return npcs
+                .stream()
+                .filter(npc -> npc.isRequiredDialogue())
+                .findFirst()
+                .get()
+                .getName() + " would like to talk and stands in the way. Stopping you from leaving.";
+    }
+
+    /**
+     * Define an exit from this room.
+     * @param name The exit name.
+     * @param exit  The object containing the requirement to take the ext and the location to which the exit leads.
+     */
+    public void setExit(String name, Exit exit)
     {
-        exits.put(direction, neighbor);
+        exits.put(name, exit);
     }
 
     /**
@@ -119,12 +159,12 @@ public class Location
      * @param direction The exit's direction.
      * @return The room in the given direction.
      */
-    public Location getExit(String direction)
+    public Exit getExit(String direction)
     {
         return exits.get(direction);
     }
 
-    public Map<String, Location> getExits() {
+    public Map<String, Exit> getExits() {
         return exits;
     }
 
@@ -142,6 +182,10 @@ public class Location
 
     public boolean hasImage() {
         return image != null;
+    }
+
+    private boolean hasAggressiveNpc() {
+        return npcs.stream().anyMatch(npc -> npc.getBehaviour().equals(Behaviour.Aggressive));
     }
 }
 

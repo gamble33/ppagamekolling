@@ -1,0 +1,19 @@
+{
+  "name": "TortureRoom",
+  "title": "Torture Room",
+  "description": "in the witch's torture room. Anastasia, the leader's beautiful wife, is sitting tied up to the wall.",
+  "image": "Waterfall",
+  "exits": [
+    {
+      "name": "door",
+      "room": "UnderWaterfall"
+    }
+  ],
+  "items": [
+    {
+      "id": "Lever",
+      "quantity": 1
+    }
+  ],
+  "npcs": ["Anastasia"]
+}

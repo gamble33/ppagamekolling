@@ -1,0 +1,32 @@
+{
+    "name": "Anastasia",
+    "description": "Anastasia, the most gorgeous wife",
+    "age": 19,
+    "maxHealth": 100.0,
+    "damage": 3000.0,
+    "damageDescription": "unveiling herself, she reveals her face to you. Her beauty pierces your soul.",
+    "behaviour": "neutral",
+    "requiredDialogue": true,
+    "dialogue": [
+        {
+            "id": "start",
+            "message": "Please rescue me",
+            "responses": [
+                {
+                    "response":  "How do I do that?",
+                    "nextDialogue": "curious"
+                }
+            ]
+        },
+        {
+            "id": "curious",
+            "message": "Pull the lever over there. It should release me from.",
+            "responses": [
+                {
+                    "response": "Yes queen.",
+                    "nextDialogue": "end"
+                }
+            ]
+        }
+    ]
+}

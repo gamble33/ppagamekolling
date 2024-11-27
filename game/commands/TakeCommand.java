@@ -51,8 +51,14 @@ public class TakeCommand extends Command {
             return false;
         }
 
-        locationInventory.removeItem(itemName, item.getQuantity());
         InventoryItem inventoryItem = new InventoryItem(item.getItem(), item.getQuantity());
+
+        if (!game.getInventory().canPickUp(inventoryItem)) {
+            game.getView().addText("You are over encumbered. Drop some items first.");
+            return false;
+        }
+
+        locationInventory.removeItem(itemName, item.getQuantity());
         game.getInventory().addItem(inventoryItem);
         game.getView().addText("You pick up " + item.getQuantity() + "x " + item.getItem().getName());
         game.getSoundPlayer().playSoundOnDifferentThread(Sound.TakeItem);

@@ -1,0 +1,16 @@
+{
+  "name": "Oasis",
+  "title": "Oasis",
+  "description": "in an oasis enclosed by the surrounding forestry. Somewhere within the forest. It's beautiful, wow. The sound of the waterfall is soothing and tranquil.",
+  "image": "Oasis",
+  "exits": [
+    {
+      "name": "west",
+      "room": "Forest"
+    },
+    {
+      "name": "waterfall",
+      "room": "UnderWaterfall"
+    }
+  ]
+}

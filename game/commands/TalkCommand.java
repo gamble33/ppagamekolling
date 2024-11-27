@@ -34,6 +34,7 @@ public class TalkCommand extends Command {
         }
         game.getView().addText("\n");
         game.changeState(new TalkState(game, npc));
+        npc.setRequiredDialogue(false);
         return true;
     }
 

@@ -2,8 +2,11 @@ package game;
 
 import game.dialogue.Dialogue;
 import game.enums.Behaviour;
+import game.item.InventoryItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Npc {
@@ -12,8 +15,10 @@ public class Npc {
     private final Behaviour behaviour;
     private final int age;
     private final Map<String, Dialogue> dialogueMap;
+    private final List<InventoryItem> drops;
 
     private float health;
+    private boolean requiredDialogue;
 
     public Npc(String name, String description, int age, float maxHealth, Behaviour behaviour) {
         this.name = name;
@@ -22,6 +27,8 @@ public class Npc {
         this.dialogueMap = new HashMap<>();
         this.health = maxHealth;
         this.behaviour = behaviour;
+        this.requiredDialogue = false;
+        this.drops = new ArrayList<>();
     }
 
     /**
@@ -50,6 +57,14 @@ public class Npc {
         return !dialogueMap.isEmpty();
     }
 
+    public boolean isRequiredDialogue() {
+        return requiredDialogue;
+    }
+
+    public void setRequiredDialogue(boolean requiredDialogue) {
+        this.requiredDialogue = requiredDialogue;
+    }
+
     public void addDialogue(String dialogueId, Dialogue dialogue) {
         dialogueMap.put(dialogueId, dialogue);
     }
@@ -67,4 +82,15 @@ public class Npc {
         return name + ", " + description + ", " + age;
     }
 
+    public void addDrop(InventoryItem item) {
+        drops.add(item);
+    }
+
+    public List<InventoryItem> getDrops() {
+        return drops;
+    }
+
+    public boolean hasDrops() {
+        return !drops.isEmpty();
+    }
 }

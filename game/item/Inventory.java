@@ -8,9 +8,11 @@ import java.util.Optional;
 
 public class Inventory {
     private final List<InventoryItem> items;
+    private final float maxWeight;
 
-    public Inventory() {
+    public Inventory(float maxWeight) {
         this.items = new ArrayList<>();
+        this.maxWeight = maxWeight;
     }
 
     public boolean has(String itemName) {
@@ -70,5 +72,17 @@ public class Inventory {
 
     public List<InventoryItem> getItemList() {
         return items;
+    }
+
+    public boolean canPickUp(InventoryItem item) {
+        return getWeight() + calculateItemWeight(item) <= maxWeight;
+    }
+
+    public float getWeight() {
+        return (float) items.stream().mapToDouble(item -> item.getItem().getWeight() * item.getQuantity()).sum();
+    }
+
+    private float calculateItemWeight(InventoryItem item) {
+        return item.getItem().getWeight() * item.getQuantity();
     }
 }

@@ -2,6 +2,7 @@ package game.factories;
 
 import game.item.FoodItem;
 import game.item.Item;
+import game.item.LeverItem;
 import game.item.PortalItem;
 import jsonParser.JSONObject;
 
@@ -30,6 +31,7 @@ public class ItemFactory {
                 yield new FoodItem(name, weight, canPickUp, damage, saturation);
             }
             case "Portal" -> new PortalItem(name, weight, canPickUp, damage);
+            case "Lever" -> new LeverItem(name, weight, canPickUp, damage);
             case "Item" -> new Item(name, weight, canPickUp, damage);
             default -> null;
         };

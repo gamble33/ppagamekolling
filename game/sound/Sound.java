@@ -12,6 +12,15 @@ public enum Sound implements FilePathProvider {
     Attack("data/sound/attack.wav"),
     Damage("data/sound/damage.wav"),
     Teleport("data/sound/teleport.wav"),
+
+    /**
+     * Credit: Cartoon Scary Hit by tyops -- https://freesound.org/s/448204/ -- License: Attribution 4.0
+     */
+    ScaryHit("data/sound/scary_hit.wav"),
+
+    /**
+     * Credit: grab-item by 1bob -- https://freesound.org/s/651515/ -- License: Creative Commons 0
+     */
     TakeItem("data/sound/grab_item.wav"),
     DropItem("data/sound/drop.wav"),
     Eat("data/sound/eat.wav"),

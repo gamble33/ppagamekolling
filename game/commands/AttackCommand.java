@@ -9,6 +9,7 @@ import game.sound.Sound;
 import game.states.CommandState;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The AttackCommand class handles the logic for attacking NPCs within the game using various items.
@@ -48,6 +49,8 @@ public class AttackCommand extends Command {
             Inventory playerInv = game.getInventory();
             if (!playerInv.has(attackItem)) {
                 game.getView().addText("You do not have " + attackItem);
+                game.getView().addText("You can always attack with `fists`.");
+                game.getInventory().displayItems("You have: ", game.getView());
                 return false;
             }
 
@@ -65,6 +68,19 @@ public class AttackCommand extends Command {
             game.getView().addText("💀 " + npc.getName() + " was killed. 💀");
             game.getCurrentLocation().removeNpc(npc);
             game.getSoundPlayer().playSoundOnDifferentThread(Sound.Kill);
+
+            if (npc.hasDrops()) {
+                npc.getDrops().forEach(drop -> {
+                    game.getCurrentLocation().getLocationInventory().addItem(drop);
+                });
+                String drops = npc
+                        .getDrops()
+                        .stream()
+                        .map(drop -> drop.getItem().getName() + " ")
+                        .collect(Collectors.joining());
+                game.getView().addText(npc.getName() + " dropped: " + drops);
+            }
+
         }
         return true;
     }
@@ -73,17 +89,14 @@ public class AttackCommand extends Command {
         switch (npc.getBehaviour()) {
             case Passive -> {
                 // todo
+                // An NPC with passive behaviour will flee from the current location.
             }
-            case Neutral -> {
-                // todo this
-                // An aggressive NPC will attack the player and remain in the same location.
+            case Neutral, Aggressive -> {
+                // An aggressive and neutral NPC will attack the player and remain in the same location.
                 Damage damage = npc.getBehaviour().getDamage();
                 game.getView().addText(npc.getName() + " " + damage.getDescription());
                 game.getView().addText("This deals 🔪💔" + damage.getAmount() + " damage.");
                 game.damage(damage.getAmount());
-            }
-            case Aggressive -> {
-
             }
         }
     }

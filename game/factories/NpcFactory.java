@@ -10,6 +10,7 @@ import game.dialogue.Dialogue;
 import game.Npc;
 import game.dialogue.Response;
 import game.enums.Behaviour;
+import game.item.InventoryItem;
 import jsonParser.JSONObject;
 
 public class NpcFactory {
@@ -35,6 +36,17 @@ public class NpcFactory {
 
         Npc npc = new Npc(name, description, age, maxHealth, behaviour);
 
+        if (json.has("itemDrops")) {
+            json.getJsonArray("itemDrops").<JSONObject>getList().forEach( jsonDrop -> {
+                npc.addDrop(new InventoryItem(
+                        ItemFactory.getItem(jsonDrop.getString("id")),
+                        jsonDrop.getInteger("quantity")
+                ));
+            }
+            );
+        }
+
+
         if (json.has("dialogue")) {
             json.getJsonArray("dialogue").<JSONObject>getList().forEach(jsonDialogue -> {
                 String id = jsonDialogue.getString("id");
@@ -49,6 +61,8 @@ public class NpcFactory {
                 Dialogue dialogue = new Dialogue(message, responses);
                 npc.addDialogue(id, dialogue);
             });
+
+            if (json.has("requiredDialogue")) npc.setRequiredDialogue(json.getBoolean("requiredDialogue"));
         }
 
         npcs.put(name, npc);

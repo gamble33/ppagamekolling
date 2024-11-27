@@ -1,0 +1,70 @@
+{
+    "name": "Witch",
+    "description": "Zhalmauyz Kempir, an old, ugly witch",
+    "age": 397,
+    "maxHealth": 15.0,
+    "damage": 50.0,
+    "damageDescription": "casts some sort of spell. You feel an overwhelming sensation of discomfort. You feel very cold and lifeless for a minute.",
+    "behaviour": "neutral",
+    "requiredDialogue": true,
+    "itemDrops": [
+        {
+            "id": "Key",
+            "quantity": 1
+        }
+    ],
+    "dialogue": [
+        {
+            "id": "start",
+            "message": "What are you doing here?",
+            "responses": [
+                {
+                    "response":  "I'm looking for my leader's wife.",
+                    "nextDialogue": "curious"
+                },
+                {
+                    "response": "That is none of your business.",
+                    "nextDialogue": "unbothered"
+                },
+                {
+                    "response": "Can you help me get inside of that door please?",
+                    "nextDialogue": "door"
+                }
+            ]
+        },
+        {
+            "id": "curious",
+            "message": "Well good luck to you. You won't find her anywhere here.",
+            "responses": [
+                {
+                    "response": "I don't believe you! Show me what is in that door?",
+                    "nextDialogue": "door"
+                },
+                {
+                    "response": "Oh okay, bye then.",
+                    "nextDialogue": "end"
+                }
+            ]
+        },
+        {
+            "id": "unbothered",
+            "message": "I don't care anyway. Okay... bye.",
+            "responses": [
+                {
+                    "response": "Bye.",
+                    "nextDialogue": "end"
+                }
+            ]
+        },
+        {
+            "id": "door",
+            "message": "That door is strictly OFF LIMITS for you. You'd have to kill me to get through!!! NOW GET AWAY!",
+            "responses": [
+                {
+                    "response": "Then you shall DIE!!",
+                    "nextDialogue": "end"
+                }
+            ]
+        }
+    ]
+}

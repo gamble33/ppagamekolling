@@ -1,0 +1,64 @@
+{
+    "name": "Shurale",
+    "description": "Shurale, Forest Dweller",
+    "age": 85,
+    "maxHealth": 100.0,
+    "damage": 35.0,
+    "damageDescription": "digs his long, aged fingernails deep into your stomach, attempting to rip your organs out.",
+    "behaviour": "neutral",
+    "requiredDialogue": true,
+    "dialogue": [
+        {
+            "id": "start",
+            "message": "Oh little one, what are you doing in this forest?",
+            "responses": [
+                {
+                    "response":  "I'm looking for my leader's wife.",
+                    "nextDialogue": "curious"
+                },
+                {
+                    "response": "That is none of your business. (Intimidate)",
+                    "nextDialogue": "unbothered"
+                },
+                {
+                    "response": "Please help me find the way to my Anastasia. (Persuade)",
+                    "nextDialogue": "wife"
+                }
+            ]
+        },
+        {
+            "id": "curious",
+            "message": "OOOhhh!! The one kidnapped by Zhalmauyz Kempir, an ugly witch, which desires to steal her beauty with magic. And now why is it that you wish to find this kidnapped Anastasia?",
+            "responses": [
+                {
+                    "response": "Wow, I thought it was another tribe which kidnapped her. I want to help my leader and become honoured.",
+                    "nextDialogue": "wife"
+                },
+                {
+                    "response": "Does it matter?",
+                    "nextDialogue": "unbothered"
+                }
+            ]
+        },
+        {
+            "id": "unbothered",
+            "message": "I don't care anyway. Okay... bye.",
+            "responses": [
+                {
+                    "response": "Bye.",
+                    "nextDialogue": "end"
+                }
+            ]
+        },
+        {
+            "id": "wife",
+            "message": "Okay, I will help you. I have nothing to do anyways. Continue further east and go under the waterfall. Bye.",
+            "responses": [
+                {
+                    "response": "Thank you forest dweller!",
+                    "nextDialogue": "end"
+                }
+            ]
+        }
+    ]
+}

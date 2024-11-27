@@ -1,5 +1,6 @@
 package game.commands;
 
+import game.Exit;
 import game.Game;
 import game.Location;
 import game.LocationDisplay;
@@ -31,12 +32,23 @@ public class GoCommand extends Command {
 
         // Try to leave current room.
         Location currentLocation = game.getCurrentLocation();
-        Location nextLocation = currentLocation.getExit(direction);
+
+        Exit exit = currentLocation.getExit(direction);
+        Location nextLocation = exit.getLocation();
 
         if (nextLocation == null) {
             game.getView().addText(direction + " is not a valid direction!");
             locationDisplay.displayExits(currentLocation);
             return false;
+        }
+
+        // Check if player has the required item in order to go through this exit. (If there exists any item requirement).
+        if (exit.hasItemRequirement()) {
+            String itemRequirement = exit.getItemRequirement();
+            if (!game.getInventory().has(itemRequirement)) {
+                game.getView().addText("To go through here, you need: " + itemRequirement);
+                return false;
+            }
         }
 
         game.moveTo(nextLocation);

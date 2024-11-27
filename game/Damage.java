@@ -1,8 +1,8 @@
 package game;
 
 public class Damage {
-    float amount;
-    String description;
+    private final float amount;
+    private final String description;
 
     public Damage(float amount, String description) {
         this.amount = amount;

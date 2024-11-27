@@ -1,0 +1,7 @@
+{
+  "id": "Lever",
+  "name": "Lever",
+  "weight": 1000000.0,
+  "canPickUp": false,
+  "type": "Lever"
+}

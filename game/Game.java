@@ -29,10 +29,12 @@ public class Game
     private static final float MAX_HEALTH = 100f;
     private static final float MAX_SATURATION = 100f;
     private static final float HUNGER_DUE_TO_MOVING = 5f;
+    private static final float MAX_PLAYER_INVENTORY_WEIGHT = 3.0f;
 
     private final GameView view;
     private final SoundPlayer<Sound> soundPlayer;
     private final LocationDisplay locationDisplay;
+    private final NpcController npcController;
 
     private GameState gameState;
     private Location currentLocation;
@@ -52,8 +54,9 @@ public class Game
         soundPlayer = new SoundPlayer<>();
         soundPlayer.loadSounds(Sound.class);
 
+        this.npcController = new NpcController(this);
         this.locationDisplay = new LocationDisplay(view);
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(MAX_PLAYER_INVENTORY_WEIGHT);
         this.saturation = MAX_SATURATION;
         this.health = MAX_HEALTH;
         this.gameState = new IntroState(this);
@@ -128,6 +131,12 @@ public class Game
     }
 
     public void moveTo(Location newLocation, boolean playSound) {
+        if (currentLocation != null && !currentLocation.canLeave()) {
+            view.addText(currentLocation.getLeaveReason());
+            soundPlayer.playSoundOnDifferentThread(Sound.ScaryHit);
+            return;
+        }
+
         this.currentLocation = newLocation;
         view.setTitle(currentLocation.getTitle());
 
@@ -146,6 +155,8 @@ public class Game
         locationDisplay.showLocationSummary(newLocation);
 
         decreaseSaturation(HUNGER_DUE_TO_MOVING);
+
+        npcController.updateNpcs(newLocation);
     }
 
     public GameView getView() {
@@ -168,9 +179,6 @@ public class Game
             }
             requestQuit();
         }).start();
-
-
-
     }
 
     private void switchMusic(Sound newMusic) {

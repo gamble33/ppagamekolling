@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum BackgroundImage {
+    Win("data/images/win.png"),
+
     /**
      * Credit: DALL-E by OpenAI.
      */
@@ -15,6 +17,21 @@ public enum BackgroundImage {
      * Credit: DALL-E by OpenAI.
      */
     Wilderness("data/images/wilderness.png"),
+
+    /**
+     * Credit: DALL-E by OpenAI.
+     */
+    Forest("data/images/forest.png"),
+
+    /**
+     * Credit: DALL-E by OpenAI.
+     */
+    Oasis("data/images/oasis.png"),
+
+    /**
+     * Credit: DALL-E by OpenAI.
+     */
+    Waterfall("data/images/waterfall.png"),
 
     /**
      * Credit: DALL-E by OpenAI.

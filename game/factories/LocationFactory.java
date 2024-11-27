@@ -1,5 +1,6 @@
 package game.factories;
 
+import game.Exit;
 import game.Location;
 import game.Npc;
 import game.item.InventoryItem;
@@ -33,7 +34,8 @@ public class LocationFactory {
         for (JSONObject exit : json.getJsonArray("exits").<JSONObject>getList()) {
             String exitName = exit.getString("name");
             String roomName = exit.getString("room");
-            location.setExit(exitName, new Location("", roomName));
+            String exitRequirement = exit.has("itemRequirement") ? exit.getString("itemRequirement") : null;
+            location.setExit(exitName, new Exit(exitName, new Location("", roomName), exitRequirement));
         }
 
         if (json.has("npcs")) {
@@ -60,11 +62,16 @@ public class LocationFactory {
 
     public static void injectDependencies() {
         for (Location location : rooms.values()) {
-            for (Map.Entry<String, Location> exit : location.getExits().entrySet()) {
-                if (rooms.get(exit.getValue().getShortDescription()) == null) {
-                    throw new RuntimeException(location.getTitle() + " couldn't find exit: " + exit.getValue().getShortDescription());
+            for (Map.Entry<String, Exit> exit : location.getExits().entrySet()) {
+                if (rooms.get(exit.getValue().getLocation().getShortDescription()) == null) {
+                    throw new RuntimeException(location.getTitle() + " couldn't find exit: " + exit.getValue().getLocation().getShortDescription());
                 }
-                location.setExit(exit.getKey(), rooms.get(exit.getValue().getShortDescription()));
+                Exit actualExit = new Exit(
+                        exit.getKey(),
+                        rooms.get(exit.getValue().getLocation().getShortDescription()),
+                        exit.getValue().getItemRequirement()
+                );
+                location.setExit(exit.getKey(), actualExit);
             }
         }
     }

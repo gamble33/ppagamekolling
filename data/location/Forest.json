@@ -1,0 +1,17 @@
+{
+  "name": "Forest",
+  "title": "Wild, Dark Forest",
+  "description": "in the wild forest. Far east of your home. It is dense, cold, and unsettling.",
+  "image": "Forest",
+  "exits": [
+    {
+      "name": "west",
+      "room": "EastWild"
+    },
+    {
+      "name": "east",
+      "room": "Oasis"
+    }
+  ],
+  "npcs": ["Shurale"]
+}

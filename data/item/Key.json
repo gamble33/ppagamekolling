@@ -1,0 +1,7 @@
+{
+  "id": "Key",
+  "name": "Key",
+  "weight": 0.1,
+  "canPickUp": true,
+  "type": "Item"
+}

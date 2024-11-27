@@ -4,6 +4,12 @@
   "age": 13,
   "maxHealth": 30.0,
   "damage": 30.0,
-  "damageDescription": "Rams you with its horns. Devastating damage is incurred. You feel dizzy.",
-  "behaviour": "aggressive"
+  "damageDescription": "rams you with its horns. Devastating damage is incurred. You feel dizzy.",
+  "behaviour": "aggressive",
+  "itemDrops": [
+    {
+      "id": "Plov",
+      "quantity": 1
+    }
+  ]
 }
