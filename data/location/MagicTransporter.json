@@ -2,6 +2,8 @@
   "name": "MagicTransporter",
   "title": "Magic Transporter Room",
   "description": "at the arcane portal. This is your tribe's most prized possession. It can teleport you ANYWHERE. Though powerful, it is very dangerous.",
+  "music": "MusicTeleportDevice",
+  "image": "Portal",
   "exits": [
     {
       "name": "east",

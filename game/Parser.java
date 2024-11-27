@@ -1,6 +1,4 @@
 package game;
-import game.commands.Command;
-import game.commands.CommandWords;
 import game.commands.RawCommand;
 
 import java.util.Scanner;

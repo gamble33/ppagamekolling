@@ -11,7 +11,7 @@ public class QuitCommand extends Command {
     @Override
     public boolean execute(RawCommand command) {
         if (command.hasArgs()) {
-            System.out.println("Quit what?");
+            game.getView().addText("Quit what?");
             return false;
         }
 

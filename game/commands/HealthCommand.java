@@ -11,7 +11,7 @@ public class HealthCommand extends Command {
     @Override
     public boolean execute(RawCommand rawCommand) {
         if (rawCommand.hasArgs()) {
-            System.out.println("Darling, just type health... nothing after that.");
+            game.getView().addText("Darling, just type health... nothing after that.");
             return false;
         }
 

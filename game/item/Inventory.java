@@ -24,7 +24,10 @@ public class Inventory {
     }
 
     public void displayItems(String message, GameView view) {
-        if (isEmpty()) return;
+        if (isEmpty()) {
+            view.addText("You have nothing.");
+            return;
+        }
         StringBuilder itemString = new StringBuilder();
         for (InventoryItem item : items) {
             itemString.append(item.getItem().getName());

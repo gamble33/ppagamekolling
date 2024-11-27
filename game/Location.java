@@ -1,7 +1,6 @@
 package game;
 
 import game.item.Inventory;
-import game.item.LocationItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +77,9 @@ public class Location
                 .orElse(null);
     }
 
+    /**
+     *
+     */
     public List<Npc> getTalkableNpcs() {
         return npcs.stream()
                 .filter(Npc::canTalkTo)

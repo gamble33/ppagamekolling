@@ -32,6 +32,7 @@ public class Game
 
     private final GameView view;
     private final SoundPlayer<Sound> soundPlayer;
+    private final LocationDisplay locationDisplay;
 
     private GameState gameState;
     private Location currentLocation;
@@ -51,11 +52,13 @@ public class Game
         soundPlayer = new SoundPlayer<>();
         soundPlayer.loadSounds(Sound.class);
 
+        this.locationDisplay = new LocationDisplay(view);
         this.inventory = new Inventory();
         this.saturation = MAX_SATURATION;
         this.health = MAX_HEALTH;
-        moveTo(startingLocation, false);
         this.gameState = new IntroState(this);
+
+        moveTo(startingLocation, false);
     }
 
     public void play()
@@ -128,6 +131,8 @@ public class Game
         this.currentLocation = newLocation;
         view.setTitle(currentLocation.getTitle());
 
+        soundPlayer.playSoundOnDifferentThread(Sound.Kill);
+
         // Handle changing background music and image.
         soundPlayer.stopSound(currentMusic);
         if (currentLocation.hasMusic()) {
@@ -137,6 +142,8 @@ public class Game
             view.setBackgroundImage(BackgroundImage.fromString(currentLocation.getImage()));
         }
         if (playSound) soundPlayer.playSoundOnDifferentThread(Sound.HorseTrot);
+
+        locationDisplay.showLocationSummary(newLocation);
 
         decreaseSaturation(HUNGER_DUE_TO_MOVING);
     }

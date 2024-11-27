@@ -12,12 +12,12 @@ public class UndoCommand extends Command {
     @Override
     public boolean execute(RawCommand rawCommand) {
         if (rawCommand.hasArgs()) {
-            System.out.println("Darling, just type undo... nothing after that.");
+            game.getView().addText("Darling, just type undo... nothing after that.");
             return false;
         }
 
         if (commandState.getCommandStack().isEmpty()) {
-            System.out.println("Nothing to undo.");
+            game.getView().addText("Nothing to undo.");
             return false;
         }
 

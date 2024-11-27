@@ -12,12 +12,12 @@ public class RedoCommand extends Command {
     @Override
     public boolean execute(RawCommand rawCommand) {
         if (rawCommand.hasArgs()) {
-            System.out.println("Darling, just type redo... nothing after that.");
+            game.getView().addText("Darling, just type redo... nothing after that.");
             return false;
         }
 
         if (commandState.getRedoCommandStack().isEmpty()) {
-            System.out.println("Nothing to redo.");
+            game.getView().addText("Nothing to redo.");
             return false;
         }
 

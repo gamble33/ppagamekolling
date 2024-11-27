@@ -61,6 +61,9 @@ public class LocationFactory {
     public static void injectDependencies() {
         for (Location location : rooms.values()) {
             for (Map.Entry<String, Location> exit : location.getExits().entrySet()) {
+                if (rooms.get(exit.getValue().getShortDescription()) == null) {
+                    throw new RuntimeException(location.getTitle() + " couldn't find exit: " + exit.getValue().getShortDescription());
+                }
                 location.setExit(exit.getKey(), rooms.get(exit.getValue().getShortDescription()));
             }
         }

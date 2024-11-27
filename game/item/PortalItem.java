@@ -17,7 +17,6 @@ public class PortalItem extends Item {
 
     @Override
     public void onInspect(Game game) {
-        game.getView().addText("AHH!!! YOU ARE BEING TELEPORTED...");
         teleportPlayer(game);
     }
 
@@ -28,5 +27,6 @@ public class PortalItem extends Item {
         Location location = locations[randomIndex];
         game.moveTo(location, false);
         game.getSoundPlayer().playSoundOnDifferentThread(Sound.Teleport);
+        game.getView().addText("AHH!!! YOU ARE BEING TELEPORTED TO " + location.getTitle() + "!");
     }
 }

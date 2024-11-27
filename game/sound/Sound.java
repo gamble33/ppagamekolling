@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Sound implements FilePathProvider {
+    /**
+     * Credit: WACFX_Low_Impact_01_ F_Bass.wav by WAProd -- https://freesound.org/s/670530/ --
+     * License: Creative Commons 0
+     */
+    Kill("data/sound/kill.wav"),
     Attack("data/sound/attack.wav"),
     Damage("data/sound/damage.wav"),
     Teleport("data/sound/teleport.wav"),
@@ -12,6 +17,12 @@ public enum Sound implements FilePathProvider {
     Eat("data/sound/eat.wav"),
     MusicCamp("data/sound/camp.wav"),
     MusicHome("data/sound/Balzhan.wav"),
+
+    /**
+     * Credit: Atmosphere very low pitch sinusoid 01 by OneiroidState -- https://freesound.org/s/192378/ --
+     * License: Creative Commons 0
+     */
+    MusicTeleportDevice("data/sound/teleporter.wav"),
 
     /**
      * Credit: A cappella - Persian loneliness by Vrymaa

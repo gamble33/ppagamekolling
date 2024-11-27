@@ -11,7 +11,7 @@
     },
     {
       "name": "east",
-      "room": "Outside"
+      "room": "EastWild"
     },
     {
       "name": "west",

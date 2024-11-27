@@ -3,6 +3,7 @@
   "title": "Hunter's Camp",
   "description": "at the tribe's camp of the hunters.",
   "music": "MusicCamp",
+  "image": "Tribe",
   "exits": [
     {
       "name": "south",

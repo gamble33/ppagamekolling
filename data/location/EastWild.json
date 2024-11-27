@@ -1,0 +1,15 @@
+{
+   "name": "EastWild",
+   "title": "Wilderness (East)",
+   "description": "in the wilderness. East of your home. It's vast, cold, and isolated.",
+   "image": "Wilderness",
+   "exits": [
+    {
+        "name": "west",
+        "room": "Home"
+     }
+    ],
+  "npcs": [
+    "Ibex"
+  ]
+ }

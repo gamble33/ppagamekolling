@@ -24,6 +24,11 @@ public enum BackgroundImage {
     /**
      * Credit: DALL-E by OpenAI.
      */
+    Portal("data/images/portal.png"),
+
+    /**
+     * Credit: DALL-E by OpenAI.
+     */
     Death("data/images/death.png");
 
     private final String filePath;

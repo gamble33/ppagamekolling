@@ -64,6 +64,7 @@ public class AttackCommand extends Command {
         if (npcKilled) {
             game.getView().addText("💀 " + npc.getName() + " was killed. 💀");
             game.getCurrentLocation().removeNpc(npc);
+            game.getSoundPlayer().playSoundOnDifferentThread(Sound.Kill);
         }
         return true;
     }

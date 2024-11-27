@@ -40,7 +40,6 @@ public class GoCommand extends Command {
         }
 
         game.moveTo(nextLocation);
-        locationDisplay.showLocationSummary(nextLocation);
         previousLocation = currentLocation;
         setRawCommand(command);
         return true;
@@ -49,6 +48,5 @@ public class GoCommand extends Command {
     @Override
     public void undo() {
         game.moveTo(previousLocation);
-        locationDisplay.showLocationSummary(previousLocation);
     }
 }
